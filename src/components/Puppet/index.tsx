@@ -24,7 +24,7 @@ export const Puppet = forwardRef<HTMLDivElement, PuppetProps>(
     return (
       <div
         className={css({
-          mr: withoutMargin ? 0 : 4,
+          mr: withoutMargin ? 0 : 8,
           cursor: 'pointer',
           pos: 'relative',
           boxShadow: '0px 15px 10px -5px rgba(40, 40, 40, 0.222)',
@@ -51,7 +51,7 @@ export const Puppet = forwardRef<HTMLDivElement, PuppetProps>(
           }
         })}
         style={{
-          width: size < 11 ? size + 7 : size,
+          minWidth: size < 11 ? size + 7 : size,
           height: size < 11 ? size * 1.8 : size * 1.1,
           backgroundColor: currentColor,
           ...style
@@ -59,14 +59,34 @@ export const Puppet = forwardRef<HTMLDivElement, PuppetProps>(
         {...rest}
         ref={ref}
       >
-        <div
+        <p
           className={css({
             pos: 'absolute',
-            top: 1,
+            top: -7,
             left: '50%',
             transform: 'translate(-50%, 20%)',
+            px: 2,
+            color: 'white',
+            bg: '#fffffff2'
+          })}
+          style={{
+            border: `1px solid ${
+              player === 'player_one' ? '#ffab1a' : '#ff0088'
+            }`,
+            color: player === 'player_one' ? '#ffab1a' : '#ff0088'
+          }}
+        >
+          {size?.toString()?.replace('0', '')}
+        </p>
+
+        <div
+          className={css({
+            w: '100%',
             gap: 1,
-            display: 'flex'
+            mt: 2,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center'
           })}
         >
           <div

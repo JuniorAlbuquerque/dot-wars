@@ -39,11 +39,10 @@ export const Square: FC<SquareProps> = ({ squareId }) => {
             className={cx(
               'square',
               css({
-                maxH: 'fit',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                zIndex: 0,
+                overflow: 'hidden',
                 pos: 'relative',
                 '&:not(:nth-child(-n + 3))': {
                   borderTop: '1vh solid #9245e4'
