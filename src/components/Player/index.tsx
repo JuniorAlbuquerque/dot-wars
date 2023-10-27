@@ -1,29 +1,23 @@
-import { FC, useMemo } from 'react'
+import { FC } from 'react'
 import { Puppet } from '../Puppet'
 import { flex } from '@styled/patterns'
 import { Draggable, Droppable } from 'react-beautiful-dnd'
+import { useGameStore } from '@/store/game/game.store'
+import { Player as PlayerModel } from '@/store/game/game.models'
 
 type PlayerProps = {
-  color: 'orange' | 'pink'
+  player: PlayerModel
 }
 
-export const Player: FC<PlayerProps> = ({ color }) => {
-  const puppets = useMemo(() => {
-    const arr = Array.from({ length: 9 }).map((_, index) => ({
-      puppet_id: `${index}-${color}`,
-      size: index * 10 + 10,
-      playerd_id: color
-    }))
-
-    return arr
-  }, [])
+export const Player: FC<PlayerProps> = ({ player }) => {
+  const puppets = useGameStore((state) => state[player])
 
   return (
-    <Droppable isDropDisabled droppableId={color} direction="horizontal">
+    <Droppable droppableId={player} direction="horizontal">
       {(provided) => (
         <div
           ref={provided.innerRef}
-          className={flex({ gap: 2, my: 8, alignItems: 'baseline' })}
+          className={flex({ my: 8, alignItems: 'flex-end', zIndex: 1 })}
           {...provided.droppableProps}
         >
           {puppets?.map((item, index) => (
@@ -35,11 +29,11 @@ export const Player: FC<PlayerProps> = ({ color }) => {
               {(providedChild) => (
                 <Puppet
                   size={item.size}
-                  color={item.playerd_id}
-                  style={providedChild.draggableProps.style}
+                  player={item.player_id}
                   ref={providedChild.innerRef}
                   {...providedChild.draggableProps}
                   {...providedChild.dragHandleProps}
+                  style={providedChild.draggableProps.style}
                 />
               )}
             </Draggable>
