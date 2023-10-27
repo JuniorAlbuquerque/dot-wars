@@ -2,19 +2,27 @@ import { createVar, style, styleVariants } from '@vanilla-extract/css'
 
 export const puppetSpacing = createVar()
 export const puppetBackground = createVar()
-export const puppetWidth = createVar()
 export const puppetHeihgt = createVar()
+export const puppetHeihgtValue = createVar()
 export const puppetMargin = createVar()
 
 const puppetBase = style({
   padding: 12,
   marginRight: puppetSpacing,
   background: puppetBackground,
-  minWidth: puppetWidth,
-  height: puppetHeihgt,
+  height: puppetHeihgtValue,
   cursor: 'pointer',
   position: 'relative',
   boxShadow: '0px 15px 10px -5px rgba(40, 40, 40, 0.222)',
+
+  '@media': {
+    'screen and (min-width: 768px)': {
+      height: puppetHeihgt,
+      vars: {
+        [puppetHeihgt]: puppetHeihgt
+      }
+    }
+  },
 
   ':after': {
     content: '""',
@@ -64,10 +72,10 @@ export const puppetStyle = styleVariants({
 
 const puppetSizeIndicatorBase = style({
   position: 'absolute',
-  top: -7,
+  top: -16,
   left: '50%',
   transform: 'translate(-50%, 20%)',
-  padding: '0 2px',
+  padding: '2px 8px',
   color: 'white',
   background: '#fffffff2',
   border: '1px solid'
@@ -92,12 +100,25 @@ export const puppetSizeIndicator = styleVariants({
 
 export const puppetEyeWidth = createVar()
 export const puppetEyeHeight = createVar()
+export const puppetEyeWidthtValue = createVar()
+export const puppetEyeHeightValue = createVar()
 
 export const puppetEye = style({
   background: 'white',
   opacity: 0.45,
-  width: puppetEyeWidth,
-  height: puppetEyeHeight
+  width: puppetEyeWidthtValue,
+  height: puppetEyeHeightValue,
+
+  '@media': {
+    'screen and (min-width: 768px)': {
+      width: puppetEyeWidth,
+      height: puppetEyeHeight,
+      vars: {
+        [puppetEyeWidth]: puppetEyeWidth,
+        [puppetEyeHeight]: puppetEyeHeight
+      }
+    }
+  }
 })
 
 export const puppetEyeWrapper = style({

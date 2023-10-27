@@ -3,6 +3,7 @@ import { style, styleVariants } from '@vanilla-extract/css'
 export const startGameOverlay = style({
   background: '#4e074fb7',
   position: 'absolute',
+  overflow: 'hidden',
   top: 0,
   display: 'flex',
   alignItems: 'center',
@@ -47,7 +48,7 @@ export const playButtonStyle = style({
   position: 'relative',
   selectors: {
     '&:active': {
-      top: 16,
+      top: 8,
       boxShadow: `
         -4px 2px 1px 1px #f16b28,
         -4px -2px 1px 1px #f16b28,

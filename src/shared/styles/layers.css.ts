@@ -7,7 +7,8 @@ const childElements = ['svg *', 'symbol *']
 globalStyle('html, body', {
   margin: 0,
   fontFamily: `${pressstart2p}, sans-serif !important`,
-  fontWeight: 400
+  fontWeight: 400,
+  overflow: 'hidden !important'
 })
 
 globalStyle(`*:not(${[...parentElements, ...childElements].join()})`, {

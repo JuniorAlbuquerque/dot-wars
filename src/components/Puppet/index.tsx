@@ -5,13 +5,15 @@ import {
   puppetBackground,
   puppetEye,
   puppetEyeHeight,
+  puppetEyeHeightValue,
   puppetEyeWidth,
+  puppetEyeWidthtValue,
   puppetEyeWrapper,
   puppetHeihgt,
+  puppetHeihgtValue,
   puppetSizeIndicator,
   puppetSpacing,
-  puppetStyle,
-  puppetWidth
+  puppetStyle
 } from './styles.css'
 
 type PuppetProps = HTMLAttributes<HTMLDivElement> & {
@@ -38,10 +40,10 @@ export const Puppet = forwardRef<HTMLDivElement, PuppetProps>(
         className={puppetStyle[player]}
         style={{
           ...assignInlineVars({
-            [puppetSpacing]: withoutMargin ? '0' : '24px',
+            [puppetSpacing]: withoutMargin ? '0' : '14px',
             [puppetBackground]: currentColor,
-            [puppetWidth]: size < 11 ? `${size + 7}px` : `${size}px`,
-            [puppetHeihgt]: size < 11 ? `${size * 1.8}px` : `${size * 1.1}px`
+            [puppetHeihgt]: `${size / 1.5}px`,
+            [puppetHeihgtValue]: `${size / 2}px`
           }),
           ...style
         }}
@@ -56,15 +58,25 @@ export const Puppet = forwardRef<HTMLDivElement, PuppetProps>(
           <div
             className={puppetEye}
             style={assignInlineVars({
-              [puppetEyeWidth]: `${size / 2.5}px`,
-              [puppetEyeHeight]: `${size / 2.5}px`
+              [puppetEyeWidth]: size > 10 ? `${size / 2.3}px` : `${size - 2}px`,
+              [puppetEyeHeight]:
+                size > 10 ? `${size / 2.3}px` : `${size - 2}px`,
+              [puppetEyeWidthtValue]:
+                size > 10 ? `${size / 4}px` : `${size - 5}px`,
+              [puppetEyeHeightValue]:
+                size > 10 ? `${size / 3.5}px` : `${size - 5}px`
             })}
           ></div>
           <div
             className={puppetEye}
             style={assignInlineVars({
-              [puppetEyeWidth]: `${size / 2.5}px`,
-              [puppetEyeHeight]: `${size / 2.5}px`
+              [puppetEyeWidth]: size > 10 ? `${size / 2.3}px` : `${size - 2}px`,
+              [puppetEyeHeight]:
+                size > 10 ? `${size / 2.3}px` : `${size - 2}px`,
+              [puppetEyeWidthtValue]:
+                size > 10 ? `${size / 4}px` : `${size - 5}px`,
+              [puppetEyeHeightValue]:
+                size > 10 ? `${size / 3.5}px` : `${size - 5}px`
             })}
           ></div>
         </div>
