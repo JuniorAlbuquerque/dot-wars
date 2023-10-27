@@ -1,9 +1,9 @@
 import { FC } from 'react'
 import { Puppet } from '../Puppet'
-import { flex } from '@styled/patterns'
 import { Draggable, Droppable } from 'react-beautiful-dnd'
 import { useGameStore } from '@/store/game/game.store'
 import { Player as PlayerModel } from '@/store/game/game.models'
+import { draggableContainer } from './styles.css'
 
 type PlayerProps = {
   player: PlayerModel
@@ -17,7 +17,7 @@ export const Player: FC<PlayerProps> = ({ player }) => {
       {(provided) => (
         <div
           ref={provided.innerRef}
-          className={flex({ my: 8, alignItems: 'flex-end', zIndex: 1 })}
+          className={draggableContainer}
           {...provided.droppableProps}
         >
           {puppets?.map((item, index) => (

@@ -1,34 +1,12 @@
-import { css } from '@styled/css'
 import useSound from 'use-sound'
 import sunflower from '@/assets/sunflower.mp3'
 import unlock from '@/assets/material_product_sounds/wav/primary/ui_unlock.wav'
-import { flex } from '@styled/patterns'
 import { useEffect, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-import { style } from './styles'
 import Logo from '../Logo'
 import { useGameStore } from '@/store/game/game.store'
-
-const dropIn = {
-  hidden: {
-    y: '-100vh',
-    opacity: 0
-  },
-  visible: {
-    y: '0',
-    opacity: 1,
-    transition: {
-      duration: 0.1,
-      type: 'spring',
-      damping: 25,
-      stiffness: 500
-    }
-  },
-  exit: {
-    y: '100vh',
-    opacity: 0
-  }
-}
+import { dropIn } from './variants'
+import { flexWrapper, playButtonStyle, startGameOverlay } from './styles.css'
 
 export const StartGame = () => {
   const [showStartGame, setShowStartGame] = useState(true)
@@ -73,35 +51,13 @@ export const StartGame = () => {
           initial="hidden"
           animate="visible"
           exit="exit"
-          className={css({
-            bg: '#4e074fb7',
-            pos: 'absolute',
-            top: 0,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            height: '100vh',
-            zIndex: 10,
-            w: '100%'
-          })}
+          className={startGameOverlay}
         >
-          <div
-            className={flex({
-              direction: 'column',
-              gap: 8,
-              alignItems: 'center'
-            })}
-          >
+          <div className={flexWrapper.mdGap}>
             {!winner && <Logo />}
 
             {!!winner && (
-              <div
-                className={css({
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center'
-                })}
-              >
+              <div className={flexWrapper.base}>
                 <Logo
                   text={`${winner?.split('_')[0]?.toUpperCase()} ${winner
                     ?.split('_')[1]
@@ -113,7 +69,7 @@ export const StartGame = () => {
             )}
 
             <motion.button
-              className={style}
+              className={playButtonStyle}
               onMouseUp={() => handlePressPlayButton()}
               onMouseDown={() => {
                 playClick()

@@ -1,8 +1,9 @@
 import { FC, Fragment, ReactNode } from 'react'
-import { css, cx } from '@styled/css'
 import { Droppable } from 'react-beautiful-dnd'
 import { Puppet } from '../Puppet'
 import { useGameStore } from '@/store/game/game.store'
+import { clsx } from 'clsx'
+import { squareContainer } from './styles.css'
 
 type SquareProps = {
   squareId?: number
@@ -36,23 +37,7 @@ export const Square: FC<SquareProps> = ({ squareId }) => {
         <Fragment>
           <button
             ref={provided.innerRef}
-            className={cx(
-              'square',
-              css({
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                overflow: 'hidden',
-                pos: 'relative',
-                '&:not(:nth-child(-n + 3))': {
-                  borderTop: '1vh solid #9245e4'
-                },
-                '&:nth-child(n+2):nth-child(-n+3), &:nth-child(n+5):nth-child(-n+6), &:nth-child(n+8):nth-child(-n+9) ':
-                  {
-                    borderLeft: '1vh solid #9245e4'
-                  }
-              })
-            )}
+            className={clsx('square', squareContainer)}
             style={{
               background:
                 snapshot?.isDraggingOver || !!lastPuppet

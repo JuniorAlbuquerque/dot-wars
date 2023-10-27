@@ -25,10 +25,9 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"],
-      "@styled/*": ["./styled-system/*"]
     },
     "types": ["vite/client"]
   },
-  "include": ["src", "styled-system"],
+  "include": ["src"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

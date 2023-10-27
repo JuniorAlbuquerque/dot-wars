@@ -1,9 +1,0 @@
-@layer utilities {
-  .text_gray\.200 {
-    color: var(--colors-gray-200)
-    }
-
-  .text_gray\.300 {
-    color: var(--colors-gray-300)
-    }
-}
