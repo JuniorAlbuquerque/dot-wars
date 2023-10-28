@@ -1,12 +1,11 @@
 import { Fragment } from 'react'
-import { Game } from './components/Game'
-import { StartGame } from './components/StartGame'
+import { RouterProvider } from 'react-router-dom'
+import { appRouter } from './router'
 
 function App() {
   return (
     <Fragment>
-      <Game />
-      <StartGame />
+      <RouterProvider router={appRouter} />
     </Fragment>
   )
 }

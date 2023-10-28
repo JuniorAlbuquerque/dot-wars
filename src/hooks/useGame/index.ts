@@ -1,6 +1,6 @@
 import { useGameStore } from '@/store/game/game.store'
 import { checkWinner } from '@/utils/checkWinner'
-import { squaresList } from '@/utils/constants'
+import { initalBoard } from '@/utils/constants'
 import { useCallback, useEffect } from 'react'
 import { MovePuppet } from './types'
 
@@ -15,7 +15,7 @@ export const useGame = () => {
       const currentSquaares = squares?.[square_id]
       const lastPuppetInSquare = currentSquaares?.[currentSquaares?.length - 1]
 
-      if (!squaresList?.includes(Number(square_id))) {
+      if (!initalBoard?.includes(square_id)) {
         throw new Error('square destination is not recognized!')
       }
 

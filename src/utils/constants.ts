@@ -1,7 +1,7 @@
-import { GameModel } from '@/models/Game.model'
+import { GameModel, squareKeys } from '@/models/Game.model'
 import { generateSquares } from './generateSquares'
 
-export const initalBoard = Array(9).fill(null)
+export const initalBoard = squareKeys
 
 export const initialGameState: Pick<
   GameModel,
@@ -9,12 +9,20 @@ export const initialGameState: Pick<
 > = {
   player_one: generateSquares('player_one'),
   player_two: generateSquares('player_two')?.reverse(),
-  squares: {},
+  squares: {
+    square_0: [],
+    square_1: [],
+    square_2: [],
+    square_3: [],
+    square_4: [],
+    square_5: [],
+    square_6: [],
+    square_7: [],
+    square_8: []
+  },
   current_player: '',
   winner: null
 }
-
-export const squaresList = initalBoard.map((_, index) => index)
 
 export const winningCombinations = [
   [0, 1, 2],

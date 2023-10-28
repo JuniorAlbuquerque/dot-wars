@@ -1,5 +1,5 @@
-import { PlayerModel } from '@/models/Player.model'
-import { Puppet } from '@/models/Puppet.model'
+import { PlayerModel } from '../models/Player.model'
+import { Puppet } from '../models/Puppet.model'
 
 export const generateSquares = (color: PlayerModel): Puppet[] => {
   return Array.from({ length: 9 }).map((_, index) => {

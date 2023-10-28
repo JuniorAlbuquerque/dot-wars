@@ -4,9 +4,10 @@ import { Puppet } from '../Puppet'
 import { useGameStore } from '@/store/game/game.store'
 import { clsx } from 'clsx'
 import { squareContainer } from './styles.css'
+import { SquareKey } from '@/models/Game.model'
 
 type SquareProps = {
-  squareId?: number
+  squareId?: SquareKey
   children?: ReactNode
   onClick?: () => void
 }

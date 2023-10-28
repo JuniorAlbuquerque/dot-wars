@@ -9,6 +9,7 @@ import { gameBoard, gameContainer } from './styles.css'
 import { useGame } from '@/hooks/useGame'
 import { PlayerModel } from '@/models/Player.model'
 import { initalBoard } from '@/utils/constants'
+import { SquareKey } from '@/models/Game.model'
 
 export const Game = () => {
   const [playDragStart] = useSound(selectionSound, {
@@ -35,7 +36,7 @@ export const Game = () => {
           player_id: player as PlayerModel,
           size: Number(size)
         },
-        square_id: Number(destination?.droppableId)
+        square_id: destination?.droppableId as SquareKey
       })
 
       playDragEnd()
@@ -59,8 +60,8 @@ export const Game = () => {
         <Player player="player_two" />
 
         <div className={gameBoard}>
-          {initalBoard?.map((_, index) => (
-            <Square key={index} squareId={index} />
+          {initalBoard?.map((square, index) => (
+            <Square key={index} squareId={square} />
           ))}
         </div>
 
