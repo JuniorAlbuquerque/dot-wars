@@ -2,12 +2,9 @@ import { FC } from 'react'
 import { Puppet } from '../Puppet'
 import { Draggable, Droppable } from 'react-beautiful-dnd'
 import { useGameStore } from '@/store/game/game.store'
-import { Player as PlayerModel } from '@/store/game/game.models'
-import { draggableContainer } from './styles.css'
 
-type PlayerProps = {
-  player: PlayerModel
-}
+import { draggableContainer } from './styles.css'
+import { PlayerProps } from './types'
 
 export const Player: FC<PlayerProps> = ({ player }) => {
   const puppets = useGameStore((state) => state[player])

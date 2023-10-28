@@ -1,46 +1,10 @@
-import { Puppet, SquareFill, initalBoard } from '@/store/game/game.models'
 import { useGameStore } from '@/store/game/game.store'
+import { checkWinner } from '@/utils/checkWinner'
+import { squaresList } from '@/utils/constants'
 import { useCallback, useEffect } from 'react'
+import { MovePuppet } from './types'
 
-type MovePuppet = {
-  puppet: Puppet
-  square_id: number
-}
-
-const checkWinner = (squares: SquareFill) => {
-  const winningCombinations = [
-    [0, 1, 2],
-    [3, 4, 5],
-    [6, 7, 8],
-    [0, 3, 6],
-    [1, 4, 7],
-    [2, 5, 8],
-    [0, 4, 8],
-    [2, 4, 6]
-  ]
-
-  for (let i = 0; i < winningCombinations?.length; i++) {
-    const [a, b, c] = winningCombinations[i]
-
-    const lastA = squares[a]?.[squares[a]?.length - 1]
-    const lastB = squares[b]?.[squares[b]?.length - 1]
-    const lastC = squares[c]?.[squares[c]?.length - 1]
-
-    if (
-      squares[a] &&
-      lastA?.player_id === lastB?.player_id &&
-      lastA?.player_id === lastC?.player_id
-    ) {
-      return lastA?.player_id
-    }
-  }
-
-  return null
-}
-
-const squaresList = initalBoard.map((_, index) => index)
-
-export const useGameActions = () => {
+export const useGame = () => {
   const updateSquare = useGameStore((state) => state.updateSquare)
   const updateWinner = useGameStore((state) => state.updateWinner)
   const current_player = useGameStore((state) => state.current_player)

@@ -1,8 +1,9 @@
 import { create } from 'zustand'
-import { GameModel, initialState } from './game.models'
+import { initialGameState } from '@/utils/constants'
+import { GameModel } from '@/models/Game.model'
 
 export const useGameStore = create<GameModel>((set, get) => ({
-  ...initialState,
+  ...initialGameState,
   updateSquare(puppet, square_id) {
     const currentSquares = get().squares[square_id] ?? []
 
@@ -24,7 +25,7 @@ export const useGameStore = create<GameModel>((set, get) => ({
   },
   resetGame() {
     set({
-      ...initialState
+      ...initialGameState
     })
   }
 }))

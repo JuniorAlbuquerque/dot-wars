@@ -5,9 +5,10 @@ import simpleSoundEnd from '@/assets/material_product_sounds/wav/primary/navigat
 import selectionSoundEnd from '@/assets/material_product_sounds/wav/hero/hero_simple-celebration-03.wav'
 import { Player } from '../Player'
 import { Square } from '../Square'
-import { Player as PlayerModel, initalBoard } from '@/store/game/game.models'
-import { useGameActions } from '@/hooks/useGameActions'
 import { gameBoard, gameContainer } from './styles.css'
+import { useGame } from '@/hooks/useGame'
+import { PlayerModel } from '@/models/Player.model'
+import { initalBoard } from '@/utils/constants'
 
 export const Game = () => {
   const [playDragStart] = useSound(selectionSound, {
@@ -20,7 +21,7 @@ export const Game = () => {
     volume: 2.2
   })
 
-  const { movePuppet } = useGameActions()
+  const { movePuppet } = useGame()
 
   const handleDragEnd = (result: DropResult) => {
     const destination = result?.destination

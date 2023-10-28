@@ -8,6 +8,7 @@ import { useGameStore } from '@/store/game/game.store'
 import { dropIn } from './variants'
 import { flexWrapper, playButtonStyle, startGameOverlay } from './styles.css'
 import { createPortal } from 'react-dom'
+import { Slider } from '../Slider'
 
 const startGameRoot = document.getElementById('start-game-root') as HTMLElement
 
@@ -47,54 +48,46 @@ export const StartGame = () => {
   }, [winner])
 
   return createPortal(
-    <div
-      style={{
-        overflow: 'hidden',
-        height: '100vh',
-        width: '100%',
-        position: 'absolute',
-        top: 0
-      }}
-    >
-      <AnimatePresence initial={true} mode="wait" onExitComplete={() => null}>
-        {showStartGame && (
-          <motion.div
-            variants={dropIn}
-            initial="hidden"
-            layoutScroll={false}
-            animate="visible"
-            exit="exit"
-            className={startGameOverlay}
-          >
-            <div className={flexWrapper.mdGap}>
-              {!winner && <Logo />}
+    <AnimatePresence initial={true} mode="wait" onExitComplete={() => null}>
+      {showStartGame && (
+        <motion.div
+          variants={dropIn}
+          initial="hidden"
+          layoutScroll={false}
+          animate="visible"
+          exit="exit"
+          className={startGameOverlay}
+        >
+          <div className={flexWrapper.mdGap}>
+            <Slider />
 
-              {!!winner && (
-                <div className={flexWrapper.base}>
-                  <Logo
-                    text={`${winner?.split('_')[0]?.toUpperCase()} ${winner
-                      ?.split('_')[1]
-                      ?.toUpperCase()}`}
-                  />
+            {!winner && <Logo />}
 
-                  <Logo text={`WINS!`} />
-                </div>
-              )}
+            {!!winner && (
+              <div className={flexWrapper.base}>
+                <Logo
+                  text={`${winner?.split('_')[0]?.toUpperCase()} ${winner
+                    ?.split('_')[1]
+                    ?.toUpperCase()}`}
+                />
 
-              <motion.button
-                className={playButtonStyle}
-                onMouseUp={() => handlePressPlayButton()}
-                onMouseDown={() => {
-                  playClick()
-                }}
-              >
-                {!winner ? 'PLAY' : 'PLAY AGAIN'}
-              </motion.button>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </div>,
+                <Logo text={`WINS!`} />
+              </div>
+            )}
+
+            <motion.button
+              className={playButtonStyle}
+              onMouseUp={() => handlePressPlayButton()}
+              onMouseDown={() => {
+                playClick()
+              }}
+            >
+              {!winner ? 'PLAY' : 'PLAY AGAIN'}
+            </motion.button>
+          </div>
+        </motion.div>
+      )}
+    </AnimatePresence>,
     startGameRoot
   )
 }

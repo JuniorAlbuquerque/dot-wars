@@ -1,5 +1,4 @@
-import { Player } from '@/store/game/game.models'
-import { HTMLAttributes, forwardRef, useMemo } from 'react'
+import { forwardRef, useMemo } from 'react'
 import { assignInlineVars } from '@vanilla-extract/dynamic'
 import {
   puppetBackground,
@@ -15,12 +14,7 @@ import {
   puppetSpacing,
   puppetStyle
 } from './styles.css'
-
-type PuppetProps = HTMLAttributes<HTMLDivElement> & {
-  size: number
-  player: Player
-  withoutMargin?: boolean
-}
+import { PuppetProps } from './types'
 
 export const Puppet = forwardRef<HTMLDivElement, PuppetProps>(
   ({ player, size, style, withoutMargin, ...rest }, ref) => {

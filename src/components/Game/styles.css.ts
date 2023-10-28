@@ -27,14 +27,14 @@ export const gameBoard = style({
   gridAutoRows: 'minmax(140px , auto)',
 
   '@media': {
-    'screen and (min-width: 768px)': {
-      width: 480,
-      height: 480
-    },
-
     'screen and (min-width: 600px)': {
       width: 400,
       height: 400
+    },
+
+    'screen and (min-width: 768px)': {
+      width: 480,
+      height: 480
     }
   }
 })
