@@ -1,6 +1,6 @@
-import { style } from '@vanilla-extract/css'
+import { style, styleVariants } from '@vanilla-extract/css'
 
-export const buttonStyle = style({
+export const buttonStyleBase = style({
   width: 'fit-content',
   background: '#f16b28',
   padding: 24,
@@ -26,9 +26,9 @@ export const buttonStyle = style({
     content: '""',
     background: '#ffba1a',
     position: 'absolute',
-    left: '-2.5%',
+    left: '-1%',
     top: 0,
-    width: '105%',
+    width: '102%',
     height: '100%',
     zIndex: -1
   },
@@ -37,9 +37,20 @@ export const buttonStyle = style({
     background: '#ffba1a',
     position: 'absolute',
     left: 0,
-    top: '-5%',
+    top: '-4%',
     width: '100%',
     height: '113%',
     zIndex: -1
   }
+})
+
+export const buttonStyle = styleVariants({
+  fullWidth: [
+    buttonStyleBase,
+    {
+      width: '100%',
+      fontSize: 20
+    }
+  ],
+  base: [buttonStyleBase]
 })
