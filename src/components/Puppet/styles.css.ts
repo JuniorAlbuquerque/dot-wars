@@ -124,7 +124,7 @@ export const puppetEye = style({
 export const puppetEyeWrapper = style({
   width: '100%',
   gap: 6,
-  marginTop: 2,
+  marginTop: 1.4,
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center'

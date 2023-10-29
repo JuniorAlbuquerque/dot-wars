@@ -36,8 +36,8 @@ export const Puppet = forwardRef<HTMLDivElement, PuppetProps>(
           ...assignInlineVars({
             [puppetSpacing]: withoutMargin ? '0' : '14px',
             [puppetBackground]: currentColor,
-            [puppetHeihgt]: `${size / 1.5}px`,
-            [puppetHeihgtValue]: `${size / 2}px`
+            [puppetHeihgt]: `${size <= 20 && size > 10 ? size * 1.35 : size}px`,
+            [puppetHeihgtValue]: `${size / 1.5}px`
           }),
           ...style
         }}
