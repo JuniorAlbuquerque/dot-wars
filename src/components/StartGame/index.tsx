@@ -8,7 +8,6 @@ import { useGameStore } from '@/store/game/game.store'
 import { dropIn } from './variants'
 import { flexWrapper, playButtonStyle, startGameOverlay } from './styles.css'
 import { createPortal } from 'react-dom'
-import { Slider } from '../Slider'
 
 const startGameRoot = document.getElementById('start-game-root') as HTMLElement
 
@@ -59,8 +58,6 @@ export const StartGame = () => {
           className={startGameOverlay}
         >
           <div className={flexWrapper.mdGap}>
-            <Slider />
-
             {!winner && <Logo />}
 
             {!!winner && (
