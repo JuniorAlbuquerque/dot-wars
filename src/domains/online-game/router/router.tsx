@@ -5,7 +5,7 @@ const OnlineGameRoutes: RouteObject = {
   children: [
     {
       element: <CreateRoom />,
-      path: '/create-room'
+      path: '/create-war'
     }
   ]
 }

@@ -5,7 +5,7 @@ const LocalGameRoutes: RouteObject = {
   children: [
     {
       element: <LocalGame />,
-      path: '/veia'
+      path: '/local-war'
     }
   ]
 }
