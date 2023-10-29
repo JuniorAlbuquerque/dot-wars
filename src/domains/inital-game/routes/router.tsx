@@ -1,7 +1,7 @@
 import { RouteObject } from 'react-router-dom'
 import { Home } from '../pages/Home'
 
-const GameRoutes: RouteObject = {
+const IntitalGameRoutes: RouteObject = {
   children: [
     {
       element: <Home />,
@@ -10,4 +10,4 @@ const GameRoutes: RouteObject = {
   ]
 }
 
-export default GameRoutes
+export default IntitalGameRoutes
