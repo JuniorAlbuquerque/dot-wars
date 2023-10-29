@@ -16,6 +16,6 @@ globalStyle(`*:not(${[...parentElements, ...childElements].join()})`, {
   display: 'revert'
 })
 
-globalStyle('*, *::before, *::after', {
+globalStyle('*, button, input, div, *::before, *::after', {
   boxSizing: 'border-box'
 })
