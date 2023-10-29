@@ -16,8 +16,7 @@ const squareSchemaKeys = [
   'square_5',
   'square_6',
   'square_7',
-  'square_8',
-  'square_9'
+  'square_8'
 ] as const
 
 export type SquareSchemaKey = (typeof squareSchemaKeys)[number]
@@ -37,8 +36,7 @@ export default defineSchema({
       square_5: v.optional(v.array(puppetSchema)),
       square_6: v.optional(v.array(puppetSchema)),
       square_7: v.optional(v.array(puppetSchema)),
-      square_8: v.optional(v.array(puppetSchema)),
-      square_9: v.optional(v.array(puppetSchema))
+      square_8: v.optional(v.array(puppetSchema))
     }),
     player_one: v.optional(v.array(puppetSchema)),
     player_two: v.optional(v.array(puppetSchema)),

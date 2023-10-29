@@ -32,8 +32,7 @@ export const createRoom = mutation({
         square_5: [],
         square_6: [],
         square_7: [],
-        square_8: [],
-        square_9: []
+        square_8: []
       },
       player_names: {
         player_one: args?.players_name?.player_one
