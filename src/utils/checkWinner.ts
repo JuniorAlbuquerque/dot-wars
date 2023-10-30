@@ -27,7 +27,7 @@ export const checkWinner = (squares: SquareFill) => {
     const lastC = mappedSquares[c]?.[mappedSquares[c]?.length - 1]
 
     if (
-      mappedSquares[a] &&
+      mappedSquares?.[a]?.length > 0 &&
       lastA?.player_id === lastB?.player_id &&
       lastA?.player_id === lastC?.player_id
     ) {
