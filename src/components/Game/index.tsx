@@ -4,14 +4,15 @@ import selectionSound from '@/assets/material_product_sounds/wav/primary/navigat
 import simpleSoundEnd from '@/assets/material_product_sounds/wav/primary/navigation_backward-selection-minimal.wav'
 import selectionSoundEnd from '@/assets/material_product_sounds/wav/hero/hero_simple-celebration-03.wav'
 import { Player } from '../Player'
-import { Square } from '../Square'
+import Square from '../Square'
 import { gameBoard } from './styles.css'
 import { useGame } from '@/hooks/useGame'
 import { PlayerModel } from '@/models/Player.model'
 import { initalBoard } from '@/utils/constants'
 import { SquareKey } from '@/models/Game.model'
 import { GameContainer } from '../GameContainer'
-import { FC } from 'react'
+import { FC, useEffect, useState } from 'react'
+import { encryptStorage } from '@/utils/storage'
 
 type GameProps = {
   online?: boolean
@@ -28,15 +29,20 @@ export const Game: FC<GameProps> = ({ online = false }) => {
     volume: 2.2
   })
 
+  const [publisherPlayer, setPublisherPlayer] =
+    useState<PlayerModel>('player_one')
+  const [subscriberPlayer, setSubscriberPlayer] =
+    useState<PlayerModel>('player_two')
+
   const { movePuppet } = useGame(online)
 
-  const handleDragEnd = (result: DropResult) => {
+  const handleDragEnd = async (result: DropResult) => {
     const destination = result?.destination
     const splittedDraggableItem = result.draggableId!.split('-')
     const [, player, size] = splittedDraggableItem
 
     try {
-      movePuppet({
+      await movePuppet({
         puppet: {
           puppet_id: result?.draggableId,
           player_id: player as PlayerModel,
@@ -55,6 +61,21 @@ export const Game: FC<GameProps> = ({ online = false }) => {
     }
   }
 
+  useEffect(() => {
+    if (online) {
+      const current_player = encryptStorage.getItem('player')
+
+      setPublisherPlayer(current_player)
+
+      if (current_player === 'player_one') {
+        setSubscriberPlayer('player_two')
+        return
+      }
+
+      setSubscriberPlayer('player_one')
+    }
+  }, [])
+
   return (
     <DragDropContext
       onDragEnd={handleDragEnd}
@@ -63,7 +84,7 @@ export const Game: FC<GameProps> = ({ online = false }) => {
       }}
     >
       <GameContainer>
-        <Player player="player_two" />
+        <Player player={subscriberPlayer} disabled={online} />
 
         <div className={gameBoard}>
           {initalBoard?.map((square, index) => (
@@ -71,7 +92,7 @@ export const Game: FC<GameProps> = ({ online = false }) => {
           ))}
         </div>
 
-        <Player player="player_one" />
+        <Player player={publisherPlayer} />
       </GameContainer>
     </DragDropContext>
   )

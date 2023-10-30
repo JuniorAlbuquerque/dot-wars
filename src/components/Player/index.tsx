@@ -6,7 +6,7 @@ import { useGameStore } from '@/store/game/game.store'
 import { draggableContainer } from './styles.css'
 import { PlayerProps } from './types'
 
-export const Player: FC<PlayerProps> = ({ player }) => {
+export const Player: FC<PlayerProps> = ({ player, disabled = false }) => {
   const puppets = useGameStore((state) => state[player])
 
   return (
@@ -28,8 +28,10 @@ export const Player: FC<PlayerProps> = ({ player }) => {
                   size={item.size}
                   player={item.player_id}
                   ref={providedChild.innerRef}
-                  {...providedChild.draggableProps}
-                  {...providedChild.dragHandleProps}
+                  {...(!disabled && {
+                    ...providedChild.draggableProps,
+                    ...providedChild.dragHandleProps
+                  })}
                   style={providedChild.draggableProps.style}
                 />
               )}
