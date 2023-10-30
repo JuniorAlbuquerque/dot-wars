@@ -1,7 +1,7 @@
 import { ConvexError, v } from 'convex/values'
 import { query, mutation } from './_generated/server'
 import { generateSquares } from '../src/utils/generateSquares'
-import { PlayerId, SquareSchemaKey, puppetSchema } from 'schema'
+import { PlayerId, SquareSchemaKey, puppetSchema } from './schema'
 
 export const getRoom = query({
   args: {
