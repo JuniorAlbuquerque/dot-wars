@@ -1,4 +1,4 @@
-import { FC, Fragment, ReactNode } from 'react'
+import { FC, Fragment, ReactNode, memo } from 'react'
 import { Droppable } from 'react-beautiful-dnd'
 import { Puppet } from '../Puppet'
 import { useGameStore } from '@/store/game/game.store'
@@ -12,7 +12,7 @@ type SquareProps = {
   onClick?: () => void
 }
 
-export const Square: FC<SquareProps> = ({ squareId }) => {
+const Square: FC<SquareProps> = ({ squareId }) => {
   const puppetsBySquare = useGameStore((state) => state.squares[squareId!])
   const lastPuppet = puppetsBySquare?.[puppetsBySquare?.length - 1] ?? null
 
@@ -61,3 +61,5 @@ export const Square: FC<SquareProps> = ({ squareId }) => {
     </Droppable>
   )
 }
+
+export default memo(Square)
