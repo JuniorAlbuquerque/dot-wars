@@ -10,7 +10,7 @@ export const gameContainer = style({
   gap: gameGap,
   alignItems: 'center',
   justifyContent: 'center',
-  background: 'url(bg.webp) rgba(1, 11, 51, 0.539)',
+  background: 'url("../bg.webp") rgba(1, 11, 51, 0.539)',
   backgroundBlendMode: 'overlay',
   backgroundSize: 'cover',
   backgroundRepeat: 'no-repeat',

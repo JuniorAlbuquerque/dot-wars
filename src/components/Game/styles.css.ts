@@ -1,18 +1,5 @@
 import { style } from '@vanilla-extract/css'
 
-export const gameContainer = style({
-  height: '100%',
-  minHeight: '100vh',
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'center',
-  justifyContent: 'center',
-  background: 'url(bg.webp) rgba(1, 11, 51, 0.539)',
-  backgroundBlendMode: 'overlay',
-  backgroundSize: 'cover',
-  backgroundRepeat: 'no-repeat'
-})
-
 export const gameBoard = style({
   display: 'grid',
   gridTemplateColumns: 'repeat(3, 1fr)',
