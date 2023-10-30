@@ -5,13 +5,19 @@ import simpleSoundEnd from '@/assets/material_product_sounds/wav/primary/navigat
 import selectionSoundEnd from '@/assets/material_product_sounds/wav/hero/hero_simple-celebration-03.wav'
 import { Player } from '../Player'
 import { Square } from '../Square'
-import { gameBoard, gameContainer } from './styles.css'
+import { gameBoard } from './styles.css'
 import { useGame } from '@/hooks/useGame'
 import { PlayerModel } from '@/models/Player.model'
 import { initalBoard } from '@/utils/constants'
 import { SquareKey } from '@/models/Game.model'
+import { GameContainer } from '../GameContainer'
+import { FC } from 'react'
 
-export const Game = () => {
+type GameProps = {
+  online?: boolean
+}
+
+export const Game: FC<GameProps> = ({ online = false }) => {
   const [playDragStart] = useSound(selectionSound, {
     volume: 2.5
   })
@@ -22,7 +28,7 @@ export const Game = () => {
     volume: 2.2
   })
 
-  const { movePuppet } = useGame()
+  const { movePuppet } = useGame(online)
 
   const handleDragEnd = (result: DropResult) => {
     const destination = result?.destination
@@ -56,7 +62,7 @@ export const Game = () => {
         playDragStart()
       }}
     >
-      <div className={gameContainer}>
+      <GameContainer>
         <Player player="player_two" />
 
         <div className={gameBoard}>
@@ -66,7 +72,7 @@ export const Game = () => {
         </div>
 
         <Player player="player_one" />
-      </div>
+      </GameContainer>
     </DragDropContext>
   )
 }
