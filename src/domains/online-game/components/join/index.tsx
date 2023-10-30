@@ -1,17 +1,44 @@
 import { Button } from '@/components/Button'
 import { Input } from '@/components/Input'
 import { Reveal } from '@/components/Reveal'
-import { FC, Fragment, useRef } from 'react'
+import { FC, Fragment, useRef, useState } from 'react'
 import { revealWapper } from '../../pages/CreateRoom/styles.css'
+import { useMutation } from 'convex/react'
+import { api } from '@convex/_generated/api'
+import { Id } from '@convex/_generated/dataModel'
+import { useNavigate } from 'react-router-dom'
+import { encryptStorage } from '@/utils/storage'
 
 export const Join: FC = () => {
+  const [loading, setLoading] = useState(false)
+
   const player_name_ref = useRef<HTMLInputElement>(null)
   const room_id_ref = useRef<HTMLInputElement>(null)
 
-  const handleJoinRoom = () => {
-    const player_name = player_name_ref.current.value
+  const navigate = useNavigate()
+  const joinRoom = useMutation(api.rooms.joinRoom)
 
-    console.log(player_name)
+  const handleJoinRoom = async () => {
+    const player_name = player_name_ref.current.value
+    const room_id = room_id_ref.current.value as Id<'rooms'>
+
+    setLoading(true)
+
+    try {
+      await joinRoom({
+        room_id,
+        player_name
+      })
+
+      encryptStorage.setItem('room', room_id)
+      encryptStorage.setItem('player', 'player_two')
+
+      navigate(`/war/${room_id}`)
+    } catch (error) {
+      console.warn('error', error)
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (
@@ -26,7 +53,7 @@ export const Join: FC = () => {
 
       <Reveal delay={0.35} className={revealWapper}>
         <Button fullWidth onClick={() => handleJoinRoom()}>
-          Join Room
+          {loading ? 'Joining...' : 'Join room'}
         </Button>
       </Reveal>
     </Fragment>

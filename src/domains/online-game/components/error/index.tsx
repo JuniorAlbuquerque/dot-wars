@@ -2,12 +2,15 @@ import { GameContainer } from '@/components/GameContainer'
 import { FC, useMemo } from 'react'
 import { errorContainer, puppetsWrapper } from './styles.css'
 import { Button } from '@/components/Button'
+import { useNavigate } from 'react-router-dom'
 
 type FallbackErrorProps = {
   error: Error
 }
 
 export const FallbackError: FC<FallbackErrorProps> = ({ error }) => {
+  const navigate = useNavigate()
+
   const currentError = useMemo(() => {
     if (error?.message?.includes('validator')) {
       return 'Oh no, room not found!'
@@ -121,7 +124,13 @@ export const FallbackError: FC<FallbackErrorProps> = ({ error }) => {
           </svg>
         </div>
 
-        <Button>Create or Join</Button>
+        <Button
+          onClick={() => {
+            navigate('/create-war')
+          }}
+        >
+          Create or Join
+        </Button>
       </div>
     </GameContainer>
   )
