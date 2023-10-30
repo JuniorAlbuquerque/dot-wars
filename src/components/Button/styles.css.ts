@@ -41,6 +41,10 @@ export const buttonStyleBase = style({
     width: '100%',
     height: '113%',
     zIndex: -1
+  },
+
+  ':disabled': {
+    cursor: 'initial'
   }
 })
 
