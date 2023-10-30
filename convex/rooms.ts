@@ -8,9 +8,13 @@ export const getRoom = query({
     room_id: v.id('rooms')
   },
   handler: async (ctx, args) => {
-    const room = await ctx.db.get(args.room_id)
+    try {
+      const room = await ctx.db.get(args.room_id)
 
-    return room
+      return room
+    } catch (error) {
+      throw new ConvexError('room_id does not exists')
+    }
   }
 })
 
@@ -66,7 +70,7 @@ export const updateRoom = mutation({
       throw new ConvexError('room_id does not exists')
     }
 
-    const currentSquares = room!.board![square_id as SquareSchemaKey]! || []
+    const currentSquares = room!.board![square_id as SquareSchemaKey]!
     const currentPlayerPuppets = room![puppet?.player_id as PlayerId]?.filter(
       (pup) => pup?.puppet_id !== puppet?.puppet_id
     )
@@ -74,6 +78,7 @@ export const updateRoom = mutation({
     return await ctx.db.patch(room_id, {
       current_player: puppet?.player_id,
       board: {
+        ...room?.board,
         [square_id]: [...currentSquares, puppet]
       },
       [puppet?.player_id]: currentPlayerPuppets
