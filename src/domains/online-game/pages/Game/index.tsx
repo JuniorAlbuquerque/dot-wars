@@ -7,7 +7,7 @@ export const OnlineGame: FC = () => {
     <Fragment>
       <Game online />
 
-      <StartGame />
+      <StartGame online />
     </Fragment>
   )
 }

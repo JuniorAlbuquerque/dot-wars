@@ -6,21 +6,25 @@ import { ErrorBoundary } from 'react-error-boundary'
 import { FallbackError } from '../components/error'
 
 const OnlineGameRoutes: RouteObject = {
-  element: (
-    <ErrorBoundary
-      fallbackRender={({ error }) => <FallbackError error={error} />}
-    >
-      <RoomValidator />
-    </ErrorBoundary>
-  ),
   children: [
     {
       element: <CreateRoom />,
       path: '/create-war'
     },
     {
-      element: <OnlineGame />,
-      path: '/war/:room_id'
+      element: (
+        <ErrorBoundary
+          fallbackRender={({ error }) => <FallbackError error={error} />}
+        >
+          <RoomValidator />
+        </ErrorBoundary>
+      ),
+      children: [
+        {
+          element: <OnlineGame />,
+          path: '/war/:room_id'
+        }
+      ]
     }
   ]
 }
