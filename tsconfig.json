@@ -25,6 +25,7 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"],
+      "@convex/*": ["convex/*"],
     },
     "types": ["vite/client"]
   },

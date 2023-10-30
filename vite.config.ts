@@ -8,6 +8,9 @@ import { vanillaExtractPlugin } from '@vanilla-extract/vite-plugin'
 export default defineConfig({
   plugins: [million.vite({}), react(), vanillaExtractPlugin()],
   resolve: {
-    alias: [{ find: '@', replacement: path.resolve(__dirname, 'src') }]
+    alias: [
+      { find: '@', replacement: path.resolve(__dirname, 'src') },
+      { find: '@convex', replacement: path.resolve(__dirname, 'convex') }
+    ]
   }
 })
