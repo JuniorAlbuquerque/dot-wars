@@ -14,6 +14,7 @@ export const useGame = (online: boolean = false) => {
   const squares = useGameStore((state) => state.squares)
 
   const updateRoom = useMutation(api.rooms.updateRoom)
+  const updateWinnerDb = useMutation(api.rooms.updateWinner)
 
   const movePuppet = useCallback(
     async ({ puppet, square_id }: MovePuppet) => {
@@ -42,18 +43,26 @@ export const useGame = (online: boolean = false) => {
           square_id: square_id,
           puppet
         })
-
-        console.log('here')
       }
     },
     [current_player, squares]
   )
 
   useEffect(() => {
+    const room_id = encryptStorage.getItem('room')
+    const player_id = encryptStorage.getItem('player')
+
     const winner = checkWinner(squares)
 
     if (winner) {
       updateWinner(winner)
+
+      if (online) {
+        updateWinnerDb({
+          room_id,
+          player_id
+        })
+      }
     }
   }, [squares])
 
