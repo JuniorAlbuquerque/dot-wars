@@ -1,4 +1,6 @@
 import { DragDropContext, type DropResult } from 'react-beautiful-dnd'
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
 import useSound from 'use-sound'
 import selectionSound from '@/assets/material_product_sounds/wav/primary/navigation_forward-selection-minimal.wav'
 import simpleSoundEnd from '@/assets/material_product_sounds/wav/primary/navigation_backward-selection-minimal.wav'

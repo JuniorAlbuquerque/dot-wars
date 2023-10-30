@@ -1,3 +1,5 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
 import useSound from 'use-sound'
 // import sunflower from '@/assets/sunflower.mp3'
 import unlock from '@/assets/material_product_sounds/wav/primary/ui_unlock.wav'
