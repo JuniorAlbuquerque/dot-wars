@@ -1,5 +1,5 @@
 import { SquareFill } from '@/models/Game.model'
-import { winningCombinations } from './constants'
+import { winningCombinations } from '../constants'
 import { Puppet } from '@/models/Puppet.model'
 
 type MappedSquare = {
@@ -7,17 +7,15 @@ type MappedSquare = {
 }
 
 export const checkWinner = (squares: SquareFill) => {
-  const mappedSquares = Object.entries(squares)?.reduce((acc, current) => {
-    const [key, value] = current
+  const mappedSquares: MappedSquare = {}
 
+  for (const key in squares) {
     const currentKey = key.split('_')[1]
 
-    if (!acc[currentKey]) {
-      acc[currentKey] = value
+    if (!mappedSquares[currentKey]) {
+      mappedSquares[currentKey] = squares[key as keyof SquareFill]
     }
-
-    return acc
-  }, {} as MappedSquare)
+  }
 
   for (let i = 0; i < winningCombinations?.length; i++) {
     const [a, b, c] = winningCombinations[i]

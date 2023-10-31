@@ -50,7 +50,6 @@ export const useGame = (online: boolean = false) => {
 
   useEffect(() => {
     const room_id = encryptStorage.getItem('room')
-    const player_id = encryptStorage.getItem('player')
 
     const winner = checkWinner(squares)
 
@@ -60,7 +59,7 @@ export const useGame = (online: boolean = false) => {
       if (online) {
         updateWinnerDb({
           room_id,
-          player_id
+          player_id: winner
         })
       }
     }
