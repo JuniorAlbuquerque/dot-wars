@@ -14,6 +14,7 @@
     "@vanilla-extract/css": "^1.13.0",
     "@vanilla-extract/dynamic": "^2.0.3",
     "@vanilla-extract/sprinkles": "^1.6.1",
+    "@vercel/analytics": "^1.1.1",
     "clsx": "^2.0.0",
     "convex": "^1.5.1",
     "encrypt-storage": "^2.12.19",
