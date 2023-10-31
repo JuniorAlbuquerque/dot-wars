@@ -18,8 +18,8 @@ export const useGame = (online: boolean = false) => {
 
   const movePuppet = useCallback(
     async ({ puppet, square_id }: MovePuppet) => {
-      const currentSquaares = squares?.[square_id]
-      const lastPuppetInSquare = currentSquaares?.[currentSquaares?.length - 1]
+      const currentSquares = squares?.[square_id]
+      const lastPuppetInSquare = currentSquares?.[currentSquares?.length - 1]
 
       if (!initalBoard?.includes(square_id)) {
         throw new Error('square destination is not recognized!')
