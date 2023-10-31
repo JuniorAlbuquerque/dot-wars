@@ -3,7 +3,7 @@
 import useSound from 'use-sound'
 // import sunflower from '@/assets/sunflower.mp3'
 import unlock from '@/assets/material_product_sounds/wav/primary/ui_unlock.wav'
-import { FC, useEffect, useState } from 'react'
+import { FC, useEffect, useMemo, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import Logo from '../Logo'
 import { useGameStore } from '@/store/game/game.store'
@@ -12,7 +12,6 @@ import { flexWrapper, playButtonStyle, startGameOverlay } from './styles.css'
 import { createPortal } from 'react-dom'
 import { useMutation } from 'convex/react'
 import { api } from '@convex/_generated/api'
-import { encryptStorage } from '@/utils/storage'
 
 const startGameRoot = document.getElementById('start-game-root') as HTMLElement
 
@@ -23,9 +22,21 @@ type StartGameProps = {
 export const StartGame: FC<StartGameProps> = ({ online }) => {
   const [showStartGame, setShowStartGame] = useState(true)
   const winner = useGameStore((state) => state.winner)
+  const player_names = useGameStore((state) => state.player_names)
+  const room_id = useGameStore((state) => state?.room_id)
   const resetGame = useGameStore((state) => state.resetGame)
 
   const restartOnlineGame = useMutation(api.rooms.restartRoom)
+
+  const winnerName = useMemo(() => {
+    if (player_names[winner]) {
+      return player_names[winner]
+    }
+
+    return `${winner?.split('_')[0]?.toUpperCase()} ${winner
+      ?.split('_')[1]
+      ?.toUpperCase()}`
+  }, [player_names, winner])
 
   // const [play, { sound }] = useSound(sunflower, {
   //   volume: 0.088
@@ -36,8 +47,6 @@ export const StartGame: FC<StartGameProps> = ({ online }) => {
 
   const handlePressPlayButton = async () => {
     if (online && winner) {
-      const room_id = encryptStorage.getItem('room')
-
       await restartOnlineGame({
         room_id
       })
@@ -81,11 +90,7 @@ export const StartGame: FC<StartGameProps> = ({ online }) => {
 
             {!!winner && (
               <div className={flexWrapper.base}>
-                <Logo
-                  text={`${winner?.split('_')[0]?.toUpperCase()} ${winner
-                    ?.split('_')[1]
-                    ?.toUpperCase()}`}
-                />
+                <Logo text={winnerName} />
 
                 <Logo text={`WINS!`} />
               </div>

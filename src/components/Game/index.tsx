@@ -14,7 +14,7 @@ import { initalBoard } from '@/utils/constants'
 import { SquareKey } from '@/models/Game.model'
 import { GameContainer } from '../GameContainer'
 import { FC, useEffect, useState } from 'react'
-import { encryptStorage } from '@/utils/storage'
+import { getRoomFromStorage } from '@/utils/storage/rooms'
 
 type GameProps = {
   online?: boolean
@@ -36,7 +36,7 @@ export const Game: FC<GameProps> = ({ online = false }) => {
   const [subscriberPlayer, setSubscriberPlayer] =
     useState<PlayerModel>('player_two')
 
-  const { movePuppet } = useGame(online)
+  const { movePuppet, current_room } = useGame(online)
 
   const handleDragEnd = async (result: DropResult) => {
     const destination = result?.destination
@@ -65,7 +65,11 @@ export const Game: FC<GameProps> = ({ online = false }) => {
 
   useEffect(() => {
     if (online) {
-      const current_player = encryptStorage.getItem('player')
+      const room = getRoomFromStorage(current_room)
+
+      const current_player = room?.player as PlayerModel
+
+      console.log('rr', current_room)
 
       setPublisherPlayer(current_player)
 
@@ -76,7 +80,7 @@ export const Game: FC<GameProps> = ({ online = false }) => {
 
       setSubscriberPlayer('player_one')
     }
-  }, [])
+  }, [current_room])
 
   return (
     <DragDropContext

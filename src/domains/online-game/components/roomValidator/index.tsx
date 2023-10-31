@@ -1,5 +1,4 @@
 import { GameContainer } from '@/components/GameContainer'
-import { encryptStorage } from '@/utils/storage'
 import { api } from '@convex/_generated/api'
 import { Id } from '@convex/_generated/dataModel'
 import { useQuery } from 'convex/react'
@@ -25,7 +24,6 @@ export const RoomValidator: FC = () => {
   useEffect(() => {
     if (currentRoom?._id) {
       setExistsRoom(true)
-      encryptStorage.setItem('room', currentRoom?._id)
 
       gameStore({
         current_player: currentRoom?.current_player,
@@ -34,7 +32,12 @@ export const RoomValidator: FC = () => {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         player_two: currentRoom?.player_two as any,
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        squares: currentRoom?.board as any
+        squares: currentRoom?.board as any,
+        room_id: currentRoom?._id,
+        player_names: {
+          player_one: currentRoom?.player_names?.player_one,
+          player_two: currentRoom?.player_names?.player_two
+        }
       })
     }
   }, [currentRoom])

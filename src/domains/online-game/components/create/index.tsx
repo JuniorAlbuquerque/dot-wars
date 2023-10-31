@@ -5,8 +5,8 @@ import { FC, Fragment, useRef, useState } from 'react'
 import { revealWapper } from '../../pages/CreateRoom/styles.css'
 import { useMutation } from 'convex/react'
 import { api } from '@convex/_generated/api'
-import { encryptStorage } from '@/utils/storage'
 import { useNavigate } from 'react-router-dom'
+import { saveRoomInStorage } from '@/utils/storage/rooms'
 
 export const Create: FC = () => {
   const [loading, setLoading] = useState(false)
@@ -24,8 +24,11 @@ export const Create: FC = () => {
         player_name
       })
 
-      encryptStorage.setItem('room', room?.room_id)
-      encryptStorage.setItem('player', room?.player)
+      saveRoomInStorage({
+        room_id: room?.room_id,
+        player: 'player_one',
+        player_name
+      })
 
       navigate(`/war/${room?.room_id}`)
     } catch (error) {

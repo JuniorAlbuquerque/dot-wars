@@ -1,3 +1,4 @@
+import { Id } from '@convex/_generated/dataModel'
 import { PlayerModel } from './Player.model'
 import { Puppet } from './Puppet.model'
 
@@ -29,6 +30,7 @@ export type GameModel = {
     player_two?: string
   }
   winner: PlayerModel
+  room_id?: Id<'rooms'>
   updateSquare(puppet: Puppet, square_id: SquareKey): void
   updateWinner(winner: PlayerModel): void
   resetGame(): void

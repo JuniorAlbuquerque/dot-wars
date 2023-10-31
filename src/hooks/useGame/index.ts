@@ -5,12 +5,12 @@ import { useCallback, useEffect } from 'react'
 import { MovePuppet } from './types'
 import { useMutation } from 'convex/react'
 import { api } from '@convex/_generated/api'
-import { encryptStorage } from '@/utils/storage'
 
 export const useGame = (online: boolean = false) => {
   const updateSquare = useGameStore((state) => state.updateSquare)
   const updateWinner = useGameStore((state) => state.updateWinner)
   const current_player = useGameStore((state) => state.current_player)
+  const current_room = useGameStore((state) => state.room_id)
   const squares = useGameStore((state) => state.squares)
 
   const updateRoom = useMutation(api.rooms.updateRoom)
@@ -36,21 +36,17 @@ export const useGame = (online: boolean = false) => {
       updateSquare(puppet, square_id)
 
       if (online) {
-        const room_id = encryptStorage.getItem('room')
-
         await updateRoom({
-          room_id,
+          room_id: current_room,
           square_id: square_id,
           puppet
         })
       }
     },
-    [current_player, squares]
+    [current_player, squares, current_room]
   )
 
   useEffect(() => {
-    const room_id = encryptStorage.getItem('room')
-
     const winner = checkWinner(squares)
 
     if (winner) {
@@ -58,7 +54,7 @@ export const useGame = (online: boolean = false) => {
 
       if (online) {
         updateWinnerDb({
-          room_id,
+          room_id: current_room,
           player_id: winner
         })
       }
@@ -66,6 +62,7 @@ export const useGame = (online: boolean = false) => {
   }, [squares])
 
   return {
-    movePuppet
+    movePuppet,
+    current_room
   }
 }

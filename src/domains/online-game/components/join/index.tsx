@@ -7,7 +7,7 @@ import { useMutation } from 'convex/react'
 import { api } from '@convex/_generated/api'
 import { Id } from '@convex/_generated/dataModel'
 import { useNavigate } from 'react-router-dom'
-import { encryptStorage } from '@/utils/storage'
+import { updateRoomInStorage } from '@/utils/storage/rooms'
 
 export const Join: FC = () => {
   const [loading, setLoading] = useState(false)
@@ -30,8 +30,11 @@ export const Join: FC = () => {
         player_name
       })
 
-      encryptStorage.setItem('room', room_id)
-      encryptStorage.setItem('player', 'player_two')
+      updateRoomInStorage({
+        room_id,
+        player: 'player_two',
+        player_name
+      })
 
       navigate(`/war/${room_id}`)
     } catch (error) {
