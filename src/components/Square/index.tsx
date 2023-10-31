@@ -1,4 +1,4 @@
-import { FC, Fragment, ReactNode, memo } from 'react'
+import { FC, Fragment, ReactNode, memo, useEffect } from 'react'
 import { Droppable } from 'react-beautiful-dnd'
 import { Puppet } from '../Puppet'
 import { useGameStore } from '@/store/game/game.store'
@@ -6,6 +6,10 @@ import { clsx } from 'clsx'
 import { squareContainer } from './styles.css'
 import { SquareKey } from '@/models/Game.model'
 import { theme } from '@/styles/theme.css'
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import useSound from 'use-sound'
+import selectionSoundEnd from '@/assets/material_product_sounds/wav/hero/hero_simple-celebration-03.wav'
 
 type SquareProps = {
   squareId?: SquareKey
@@ -24,11 +28,21 @@ const Square: FC<SquareProps> = ({ squareId }) => {
   const puppetsBySquare = useGameStore((state) => state.squares[squareId!])
   const lastPuppet = puppetsBySquare?.[puppetsBySquare?.length - 1] ?? null
 
+  const [playDragEnd] = useSound(selectionSoundEnd, {
+    volume: 1
+  })
+
   const getSquareStyle = (dragId: string) => {
     const lastPlayerId = lastPuppet?.player_id
     const color = lastPlayerId ? playerColors[lastPlayerId] : defaultColor
     return dragId?.includes('two') ? playerColors.player_two : color
   }
+
+  useEffect(() => {
+    if (puppetsBySquare?.length > 0) {
+      playDragEnd()
+    }
+  }, [puppetsBySquare])
 
   return (
     <Droppable droppableId={squareId?.toString()}>

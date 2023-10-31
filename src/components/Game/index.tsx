@@ -4,7 +4,6 @@ import { DragDropContext, type DropResult } from 'react-beautiful-dnd'
 import useSound from 'use-sound'
 import selectionSound from '@/assets/material_product_sounds/wav/primary/navigation_forward-selection-minimal.wav'
 import simpleSoundEnd from '@/assets/material_product_sounds/wav/primary/navigation_backward-selection-minimal.wav'
-import selectionSoundEnd from '@/assets/material_product_sounds/wav/hero/hero_simple-celebration-03.wav'
 import { Player } from '../Player'
 import Square from '../Square'
 import { gameBoard } from './styles.css'
@@ -23,9 +22,6 @@ type GameProps = {
 export const Game: FC<GameProps> = ({ online = false }) => {
   const [playDragStart] = useSound(selectionSound, {
     volume: 2.5
-  })
-  const [playDragEnd] = useSound(selectionSoundEnd, {
-    volume: 1
   })
   const [playSimpleDragEnd] = useSound(simpleSoundEnd, {
     volume: 2.2
@@ -52,8 +48,6 @@ export const Game: FC<GameProps> = ({ online = false }) => {
         },
         square_id: destination?.droppableId as SquareKey
       })
-
-      playDragEnd()
     } catch (error) {
       playSimpleDragEnd()
 
