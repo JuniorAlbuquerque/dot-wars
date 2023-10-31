@@ -5,6 +5,7 @@ import { useGameStore } from '@/store/game/game.store'
 import { clsx } from 'clsx'
 import { squareContainer } from './styles.css'
 import { SquareKey } from '@/models/Game.model'
+import { theme } from '@/styles/theme.css'
 
 type SquareProps = {
   squareId?: SquareKey
@@ -12,24 +13,21 @@ type SquareProps = {
   onClick?: () => void
 }
 
+const playerColors = {
+  player_one: theme.colors.primary_bg,
+  player_two: theme.colors.secondary_bg
+}
+
+const defaultColor = theme.colors.primary_bg
+
 const Square: FC<SquareProps> = ({ squareId }) => {
   const puppetsBySquare = useGameStore((state) => state.squares[squareId!])
   const lastPuppet = puppetsBySquare?.[puppetsBySquare?.length - 1] ?? null
 
   const getSquareStyle = (dragId: string) => {
-    if (lastPuppet?.player_id === 'player_one') {
-      return '#fad1b4'
-    }
-
-    if (lastPuppet?.player_id === 'player_two') {
-      return '#ffb9dc'
-    }
-
-    if (dragId.includes('two')) {
-      return '#ffb9dc'
-    }
-
-    return '#fad1b4'
+    const lastPlayerId = lastPuppet?.player_id
+    const color = lastPlayerId ? playerColors[lastPlayerId] : defaultColor
+    return dragId?.includes('two') ? playerColors.player_two : color
   }
 
   return (
