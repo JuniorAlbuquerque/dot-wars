@@ -2,9 +2,6 @@ import ReactDOM from 'react-dom/client'
 import App from './App.tsx'
 import '@/styles/layers.css.ts'
 import { ConvexProvider, ConvexReactClient } from 'convex/react'
-import { inject } from '@vercel/analytics'
-
-inject()
 
 const convex = new ConvexReactClient(import.meta.env.VITE_CONVEX_URL as string)
 
