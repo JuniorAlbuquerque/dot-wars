@@ -42,7 +42,7 @@ const Square: FC<SquareProps> = ({ squareId }) => {
     if (puppetsBySquare?.length > 0) {
       playDragEnd()
     }
-  }, [puppetsBySquare])
+  }, [puppetsBySquare?.length])
 
   return (
     <Droppable droppableId={squareId?.toString()}>
