@@ -131,24 +131,31 @@ export const updateWinner = mutation({
       throw new ConvexError('room_id does not exists')
     }
 
+    const current_player =
+      player_id === 'player_one' ? 'player_two' : 'player_one'
+
     return await ctx.db.patch(room_id, {
-      winner: player_id
+      winner: player_id,
+      current_player
     })
   }
 })
 
 export const restartRoom = mutation({
   args: {
-    room_id: v.id('rooms')
+    room_id: v.id('rooms'),
+    winner: v.string()
   },
   handler: async (ctx, args) => {
-    const { room_id } = args
+    const { room_id, winner } = args
 
     const room = await ctx.db.get(room_id)
 
     if (!room) {
       throw new ConvexError('room_id does not exists')
     }
+
+    const current_player = winner === 'player_one' ? 'player_two' : 'player_one'
 
     return await ctx.db.patch(room_id, {
       board: {
@@ -162,6 +169,7 @@ export const restartRoom = mutation({
         square_7: [],
         square_8: []
       },
+      current_player,
       winner: '',
       player_one: generateSquares('player_one'),
       player_two: generateSquares('player_two')

@@ -48,7 +48,8 @@ export const StartGame: FC<StartGameProps> = ({ online }) => {
   const handlePressPlayButton = async () => {
     if (online && winner) {
       await restartOnlineGame({
-        room_id
+        room_id,
+        winner
       })
     }
 
