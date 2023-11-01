@@ -5,39 +5,69 @@ import { useGameStore } from '@/store/game/game.store'
 
 import { draggableContainer } from './styles.css'
 import { PlayerProps } from './types'
+import { theme } from '@/styles/theme.css'
 
-export const Player: FC<PlayerProps> = ({ player, disabled = false }) => {
+const player_turn_color = {
+  player_one: theme.colors.primary,
+  player_two: theme.colors.secondary
+}
+
+export const Player: FC<PlayerProps> = ({
+  player,
+  disabled = false,
+  isTurn,
+  subscriber
+}) => {
   const puppets = useGameStore((state) => state[player])
 
   return (
     <Droppable droppableId={player} direction="horizontal">
       {(provided) => (
         <div
-          ref={provided.innerRef}
-          className={draggableContainer}
-          {...provided.droppableProps}
+          style={{
+            display: 'flex',
+            flexDirection: subscriber ? 'column' : 'column-reverse',
+            gap: '0.2rem',
+            alignItems: 'center'
+          }}
         >
-          {puppets?.map((item, index) => (
-            <Draggable
-              key={item.puppet_id}
-              index={index}
-              draggableId={item.puppet_id}
+          <div
+            ref={provided.innerRef}
+            className={draggableContainer}
+            {...provided.droppableProps}
+          >
+            {puppets?.map((item, index) => (
+              <Draggable
+                key={item.puppet_id}
+                index={index}
+                draggableId={item.puppet_id}
+              >
+                {(providedChild) => (
+                  <Puppet
+                    size={item.size}
+                    player={item.player_id}
+                    ref={providedChild.innerRef}
+                    {...(!disabled && {
+                      ...providedChild.draggableProps,
+                      ...providedChild.dragHandleProps
+                    })}
+                    style={providedChild.draggableProps.style}
+                  />
+                )}
+              </Draggable>
+            ))}
+            {provided.placeholder}
+          </div>
+
+          {isTurn && (
+            <h1
+              style={{
+                color: player_turn_color[player]
+              }}
             >
-              {(providedChild) => (
-                <Puppet
-                  size={item.size}
-                  player={item.player_id}
-                  ref={providedChild.innerRef}
-                  {...(!disabled && {
-                    ...providedChild.draggableProps,
-                    ...providedChild.dragHandleProps
-                  })}
-                  style={providedChild.draggableProps.style}
-                />
-              )}
-            </Draggable>
-          ))}
-          {provided.placeholder}
+              {player?.split('_')[0]} {player?.split('_')[1]} can play!
+            </h1>
+          )}
         </div>
       )}
     </Droppable>

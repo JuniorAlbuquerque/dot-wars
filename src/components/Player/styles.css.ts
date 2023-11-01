@@ -7,5 +7,5 @@ export const draggableContainer = style({
   justifyContent: 'center',
   flexWrap: 'wrap',
   zIndex: 1,
-  padding: '0 32px'
+  padding: '8px 16px'
 })

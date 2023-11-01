@@ -71,6 +71,7 @@ export const useGame = (online: boolean = false) => {
 
   return {
     movePuppet,
-    current_room
+    current_room,
+    current_player
   }
 }

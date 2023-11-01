@@ -32,7 +32,7 @@ export const Game: FC<GameProps> = ({ online = false }) => {
   const [subscriberPlayer, setSubscriberPlayer] =
     useState<PlayerModel>('player_two')
 
-  const { movePuppet, current_room } = useGame(online)
+  const { movePuppet, current_room, current_player } = useGame(online)
 
   const handleDragEnd = async (result: DropResult) => {
     const destination = result?.destination
@@ -84,7 +84,12 @@ export const Game: FC<GameProps> = ({ online = false }) => {
       }}
     >
       <GameContainer>
-        <Player player={subscriberPlayer} disabled={online} />
+        <Player
+          player={subscriberPlayer}
+          disabled={online}
+          isTurn={current_player !== subscriberPlayer}
+          subscriber
+        />
 
         <div className={gameBoard}>
           {initalBoard?.map((square, index) => (
@@ -92,7 +97,10 @@ export const Game: FC<GameProps> = ({ online = false }) => {
           ))}
         </div>
 
-        <Player player={publisherPlayer} />
+        <Player
+          player={publisherPlayer}
+          isTurn={current_player !== publisherPlayer}
+        />
       </GameContainer>
     </DragDropContext>
   )
