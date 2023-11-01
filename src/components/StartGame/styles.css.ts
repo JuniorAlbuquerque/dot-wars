@@ -2,7 +2,7 @@ import { style, styleVariants } from '@vanilla-extract/css'
 
 export const startGameOverlay = style({
   background: '#4e074fb7',
-  position: 'absolute',
+  position: 'fixed',
   overflow: 'hidden',
   top: 0,
   display: 'flex',
