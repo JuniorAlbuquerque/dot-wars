@@ -1,5 +1,5 @@
 import { useGameStore } from '@/store/game/game.store'
-import { checkWinner } from '@/utils/checkWinner'
+import { checkIsDraw, checkWinner } from '@/utils/checkWinner'
 import { initalBoard } from '@/utils/constants'
 import { useCallback, useEffect } from 'react'
 import { MovePuppet } from './types'
@@ -10,6 +10,8 @@ export const useGame = (online: boolean = false) => {
   const updateSquare = useGameStore((state) => state.updateSquare)
   const updateWinner = useGameStore((state) => state.updateWinner)
   const current_player = useGameStore((state) => state.current_player)
+  const player_one = useGameStore((state) => state.player_one)
+  const player_two = useGameStore((state) => state.player_two)
   const current_room = useGameStore((state) => state.room_id)
   const squares = useGameStore((state) => state.squares)
 
@@ -60,6 +62,12 @@ export const useGame = (online: boolean = false) => {
       }
     }
   }, [squares])
+
+  useEffect(() => {
+    const isDraw = checkIsDraw(squares, [...player_one, ...player_two])
+
+    console.log('draw', isDraw)
+  }, [squares, player_one?.length, player_two?.length])
 
   return {
     movePuppet,
