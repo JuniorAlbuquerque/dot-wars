@@ -1,10 +1,13 @@
+import { theme } from '@/styles/theme.css'
 import { createVar, style } from '@vanilla-extract/css'
 
 export const sliderLevelVar = createVar()
 
 export const sliderWrapper = style({
   position: 'relative',
-  width: 'fit-content'
+  width: '100%',
+  zIndex: 1,
+  background: theme.colors.primary_bg
 })
 
 export const sliderLevel = style({
@@ -15,12 +18,7 @@ export const sliderLevel = style({
   margin: 0,
   top: 0,
   zIndex: -1,
-  background: '#e45'
-  // background: `linear-gradient(
-  //   to bottom right,
-  //   transparent 50%,
-  //   #e45 0%
-  // )`
+  background: theme.colors.primary
 })
 
 export const sliderStyle = style({
@@ -28,9 +26,10 @@ export const sliderStyle = style({
   appearance: 'none',
   height: '1.4rem',
   cursor: 'pointer',
+  width: '100%',
 
   '::-webkit-slider-thumb': {
-    background: '#e34',
+    background: theme.colors.primary,
     WebkitAppearance: 'none',
     height: '2rem',
     width: '1rem'

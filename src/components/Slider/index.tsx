@@ -1,4 +1,4 @@
-import { FC, useState } from 'react'
+import { FC, useEffect, useMemo, useState } from 'react'
 import {
   sliderLevel,
   sliderLevelVar,
@@ -7,27 +7,56 @@ import {
 } from './styles.css'
 import { assignInlineVars } from '@vanilla-extract/dynamic'
 
-export const Slider: FC = () => {
-  const [level, setLevel] = useState(100)
+type SliderProps = {
+  level: number
+  max: number
+  min: number
+  step: number
+  onChange: (level: number) => void
+}
+
+export const Slider: FC<SliderProps> = ({
+  level,
+  min,
+  max,
+  step,
+  onChange
+}) => {
+  const [currentLevel, setLevel] = useState(level)
+
+  const currentSliderWidth = useMemo(() => {
+    return (currentLevel / max) * 100
+  }, [currentLevel])
+
+  useEffect(() => {
+    if (level) {
+      setLevel(level)
+    }
+  }, [level])
 
   return (
     <div className={sliderWrapper}>
       <input
         className={sliderStyle}
         type="range"
-        min="0"
-        max="100"
-        step="1"
-        value={level}
+        min={min}
+        max={max}
+        step={step}
+        value={currentLevel}
         onChange={(event) => {
           const value = event.target.value
+
+          if (onChange) {
+            onChange(Number(value))
+          }
+
           setLevel(Number(value))
         }}
       />
 
       <div
         className={sliderLevel}
-        style={assignInlineVars({ [sliderLevelVar]: `${level}%` })}
+        style={assignInlineVars({ [sliderLevelVar]: `${currentSliderWidth}%` })}
       ></div>
     </div>
   )
