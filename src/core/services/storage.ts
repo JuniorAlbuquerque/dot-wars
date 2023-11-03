@@ -1,5 +1,5 @@
+import { encryptStorage } from '@/utils/storage'
 import { Id } from '@convex/_generated/dataModel'
-import { encryptStorage } from '.'
 
 type RoomStorageData = {
   room_id: Id<'rooms'>

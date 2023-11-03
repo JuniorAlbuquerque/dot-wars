@@ -1,5 +1,5 @@
 import { SquareFill } from '@/models/Game.model'
-import { winningCombinations } from '../constants'
+import { winningCombinations } from '../../../utils/constants'
 import { Puppet } from '@/models/Puppet.model'
 
 type MappedSquare = {

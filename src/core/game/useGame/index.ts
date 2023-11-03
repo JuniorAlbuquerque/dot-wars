@@ -1,10 +1,9 @@
 import { useGameStore } from '@/store/game/game.store'
-import { checkIsDraw, checkWinner } from '@/utils/checkWinner'
+import { checkIsDraw, checkWinner } from '@/core/game/checkWinner'
 import { initalBoard } from '@/utils/constants'
 import { useCallback, useEffect } from 'react'
 import { MovePuppet } from './types'
-import { useMutation } from 'convex/react'
-import { api } from '@convex/_generated/api'
+import { useUpdateRoom, useUpdateWinner } from '@/core/services/realtime'
 
 export const useGame = (online: boolean = false) => {
   const updateSquare = useGameStore((state) => state.updateSquare)
@@ -15,8 +14,8 @@ export const useGame = (online: boolean = false) => {
   const current_room = useGameStore((state) => state.room_id)
   const squares = useGameStore((state) => state.squares)
 
-  const updateRoom = useMutation(api.rooms.updateRoom)
-  const updateWinnerDb = useMutation(api.rooms.updateWinner)
+  const updateRoom = useUpdateRoom()
+  const updateWinnerDb = useUpdateWinner()
 
   const movePuppet = useCallback(
     async ({ puppet, square_id }: MovePuppet) => {
@@ -38,11 +37,7 @@ export const useGame = (online: boolean = false) => {
       updateSquare(puppet, square_id)
 
       if (online) {
-        await updateRoom({
-          room_id: current_room,
-          square_id: square_id,
-          puppet
-        })
+        await updateRoom(current_room, square_id, puppet)
       }
     },
     [current_player, squares, current_room]
@@ -55,10 +50,7 @@ export const useGame = (online: boolean = false) => {
       updateWinner(winner)
 
       if (online) {
-        updateWinnerDb({
-          room_id: current_room,
-          player_id: winner
-        })
+        updateWinnerDb(current_room, winner)
       }
     }
   }, [squares])

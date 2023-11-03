@@ -3,36 +3,38 @@ import { Input } from '@/components/Input'
 import { Reveal } from '@/components/Reveal'
 import { FC, Fragment, useRef, useState } from 'react'
 import { revealWapper } from '../../pages/CreateRoom/styles.css'
-import { useMutation } from 'convex/react'
-import { api } from '@convex/_generated/api'
+import { Id } from '@convex/_generated/dataModel'
 import { useNavigate } from 'react-router-dom'
-import { saveRoomInStorage } from '@/utils/storage/rooms'
+import { useJoinRoom } from '@/core/services/realtime'
+import { updateRoomInStorage } from '@/core/services/storage'
 
-export const Create: FC = () => {
+export const Join: FC = () => {
   const [loading, setLoading] = useState(false)
+
   const player_name_ref = useRef<HTMLInputElement>(null)
+  const room_id_ref = useRef<HTMLInputElement>(null)
 
   const navigate = useNavigate()
-  const createRoom = useMutation(api.rooms.createRoom)
+  const joinRoom = useJoinRoom()
 
-  const handleCreateRoom = async () => {
+  const handleJoinRoom = async () => {
     const player_name = player_name_ref.current.value
+    const room_id = room_id_ref.current.value as Id<'rooms'>
+
     setLoading(true)
 
     try {
-      const room = await createRoom({
+      await joinRoom(room_id, player_name)
+
+      updateRoomInStorage({
+        room_id,
+        player: 'player_two',
         player_name
       })
 
-      saveRoomInStorage({
-        room_id: room?.room_id,
-        player: 'player_one',
-        player_name
-      })
-
-      navigate(`/war/${room?.room_id}`)
+      navigate(`/war/${room_id}`)
     } catch (error) {
-      console.warn(error)
+      console.warn('error', error)
     } finally {
       setLoading(false)
     }
@@ -44,9 +46,13 @@ export const Create: FC = () => {
         <Input label="Your name" ref={player_name_ref} />
       </Reveal>
 
+      <Reveal delay={0.25} className={revealWapper}>
+        <Input label="Room Id" ref={room_id_ref} />
+      </Reveal>
+
       <Reveal delay={0.35} className={revealWapper}>
-        <Button fullWidth disabled={loading} onClick={handleCreateRoom}>
-          {loading ? 'Creating...' : 'Create'}
+        <Button fullWidth onClick={() => handleJoinRoom()}>
+          {loading ? 'Joining...' : 'Join room'}
         </Button>
       </Reveal>
     </Fragment>

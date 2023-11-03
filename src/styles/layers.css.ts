@@ -31,5 +31,5 @@ globalStyle(`*:not(${[...parentElements, ...childElements].join()})`, {
 })
 
 globalStyle('*, button, input, div, *::before, *::after', {
-  boxSizing: 'border-box'
+  boxSizing: 'border-box !important' as 'border-box'
 })

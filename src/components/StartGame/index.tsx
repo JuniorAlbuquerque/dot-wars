@@ -1,19 +1,14 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import useSound from 'use-sound'
-// import sunflower from '@/assets/sunflower.mp3'
 import unlock from '@/assets/material_product_sounds/wav/primary/ui_unlock.wav'
 import { FC, useEffect, useMemo, useState } from 'react'
-import { AnimatePresence, motion } from 'framer-motion'
 import Logo from '../Logo'
 import { useGameStore } from '@/store/game/game.store'
-import { dropIn } from './variants'
-import { flexWrapper, playButtonStyle, startGameOverlay } from './styles.css'
-import { createPortal } from 'react-dom'
-import { useMutation } from 'convex/react'
-import { api } from '@convex/_generated/api'
-
-const startGameRoot = document.getElementById('start-game-root') as HTMLElement
+import { flexWrapper } from './styles.css'
+import { Modal } from '../Modal'
+import { Button } from '../Button'
+import { useRestartGame } from '@/core/services/realtime'
 
 type StartGameProps = {
   online?: boolean
@@ -26,7 +21,7 @@ export const StartGame: FC<StartGameProps> = ({ online }) => {
   const room_id = useGameStore((state) => state?.room_id)
   const resetGame = useGameStore((state) => state.resetGame)
 
-  const restartOnlineGame = useMutation(api.rooms.restartRoom)
+  const restartOnlineGame = useRestartGame()
 
   const winnerName = useMemo(() => {
     if (player_names[winner]) {
@@ -38,36 +33,21 @@ export const StartGame: FC<StartGameProps> = ({ online }) => {
       ?.toUpperCase()}`
   }, [player_names, winner])
 
-  // const [play, { sound }] = useSound(sunflower, {
-  //   volume: 0.088
-  // })
   const [playClick] = useSound(unlock, {
     volume: 2
   })
 
   const handlePressPlayButton = async () => {
     if (online && winner) {
-      await restartOnlineGame({
-        room_id,
-        winner
-      })
+      await restartOnlineGame(room_id, winner)
     }
 
     if (winner) {
       resetGame()
     }
 
-    // resetGame()
     setShowStartGame(false)
   }
-
-  // useEffect(() => {
-  //   if (sound) {
-  //     sound?.on('end', () => {
-  //       play()
-  //     })
-  //   }
-  // }, [sound])
 
   useEffect(() => {
     if (winner) {
@@ -75,41 +55,28 @@ export const StartGame: FC<StartGameProps> = ({ online }) => {
     }
   }, [winner])
 
-  return createPortal(
-    <AnimatePresence initial={true} mode="wait" onExitComplete={() => null}>
-      {showStartGame && (
-        <motion.div
-          variants={dropIn}
-          initial="hidden"
-          layoutScroll={false}
-          animate="visible"
-          exit="exit"
-          className={startGameOverlay}
-        >
-          <div className={flexWrapper.mdGap}>
-            {!winner && <Logo />}
+  return (
+    <Modal open={showStartGame}>
+      <div className={flexWrapper.mdGap}>
+        {!winner && <Logo />}
 
-            {!!winner && (
-              <div className={flexWrapper.base}>
-                <Logo text={winnerName} />
+        {!!winner && (
+          <div className={flexWrapper.base}>
+            <Logo text={winnerName} />
 
-                <Logo text={`WINS!`} />
-              </div>
-            )}
-
-            <motion.button
-              className={playButtonStyle}
-              onMouseUp={handlePressPlayButton}
-              onMouseDown={() => {
-                playClick()
-              }}
-            >
-              {!winner ? 'PLAY' : 'PLAY AGAIN'}
-            </motion.button>
+            <Logo text={`WINS!`} />
           </div>
-        </motion.div>
-      )}
-    </AnimatePresence>,
-    startGameRoot
+        )}
+
+        <Button
+          onMouseUp={handlePressPlayButton}
+          onMouseDown={() => {
+            playClick()
+          }}
+        >
+          {!winner ? 'PLAY' : 'PLAY AGAIN'}
+        </Button>
+      </div>
+    </Modal>
   )
 }

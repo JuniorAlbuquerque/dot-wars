@@ -7,24 +7,27 @@ import simpleSoundEnd from '@/assets/material_product_sounds/wav/primary/navigat
 import { Player } from '../Player'
 import Square from '../Square'
 import { gameBoard } from './styles.css'
-import { useGame } from '@/hooks/useGame'
+import { useGame } from '@/core/game/useGame'
 import { PlayerModel } from '@/models/Player.model'
 import { initalBoard } from '@/utils/constants'
 import { SquareKey } from '@/models/Game.model'
 import { GameContainer } from '../GameContainer'
 import { FC, useEffect, useState } from 'react'
-import { getRoomFromStorage } from '@/utils/storage/rooms'
+import { getRoomFromStorage } from '@/core/services/storage'
+import { useControlStore } from '@/store/control/control.store'
 
 type GameProps = {
   online?: boolean
 }
 
 export const Game: FC<GameProps> = ({ online = false }) => {
+  const effectVolume = useControlStore((state) => state.effectsVolume)
+
   const [playDragStart] = useSound(selectionSound, {
-    volume: 2.5
+    volume: effectVolume
   })
   const [playSimpleDragEnd] = useSound(simpleSoundEnd, {
-    volume: 2.2
+    volume: effectVolume
   })
 
   const [publisherPlayer, setPublisherPlayer] =
@@ -60,10 +63,7 @@ export const Game: FC<GameProps> = ({ online = false }) => {
   useEffect(() => {
     if (online) {
       const room = getRoomFromStorage(current_room)
-
       const current_player = room?.player as PlayerModel
-
-      console.log('rr', current_room)
 
       setPublisherPlayer(current_player)
 

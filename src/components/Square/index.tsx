@@ -10,6 +10,7 @@ import { theme } from '@/styles/theme.css'
 // @ts-ignore
 import useSound from 'use-sound'
 import selectionSoundEnd from '@/assets/material_product_sounds/wav/hero/hero_simple-celebration-03.wav'
+import { useControlStore } from '@/store/control/control.store'
 
 type SquareProps = {
   squareId?: SquareKey
@@ -27,9 +28,10 @@ const defaultColor = theme.colors.primary_bg
 const Square: FC<SquareProps> = ({ squareId }) => {
   const puppetsBySquare = useGameStore((state) => state.squares[squareId!])
   const lastPuppet = puppetsBySquare?.[puppetsBySquare?.length - 1] ?? null
+  const effectVolume = useControlStore((state) => state.effectsVolume)
 
   const [playDragEnd] = useSound(selectionSoundEnd, {
-    volume: 1
+    volume: effectVolume - 0.25
   })
 
   const getSquareStyle = (dragId: string) => {

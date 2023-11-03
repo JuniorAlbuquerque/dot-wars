@@ -2,7 +2,7 @@ import { Variants } from 'framer-motion'
 
 export const dropIn: Variants = {
   hidden: {
-    y: '-100vh',
+    y: '200vh',
     opacity: 0
   },
   visible: {

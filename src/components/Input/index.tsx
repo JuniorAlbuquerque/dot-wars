@@ -12,17 +12,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
     return (
       <div className={inputWrapper}>
         {label && <label htmlFor={id}>{label}</label>}
-        <input
-          {...rest}
-          id={id}
-          ref={ref}
-          className={inputStyle}
-          style={
-            {
-              // background: '#010b33'
-            }
-          }
-        />
+        <input {...rest} id={id} ref={ref} className={inputStyle} />
       </div>
     )
   }
