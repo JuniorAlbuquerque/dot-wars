@@ -5,6 +5,7 @@ import { GameModel } from '@/models/Game.model'
 export const useGameStore = create<GameModel>((set, get) => ({
   ...initialGameState,
   current_player: '',
+  draw: false,
   player_names: {
     player_one: '',
     player_two: ''
@@ -29,6 +30,11 @@ export const useGameStore = create<GameModel>((set, get) => ({
     set({
       winner,
       current_player
+    })
+  },
+  updateDraw() {
+    set({
+      draw: true
     })
   },
   resetGame() {

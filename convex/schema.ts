@@ -27,6 +27,7 @@ export default defineSchema({
     room_id: v.optional(v.id('rooms')),
     current_player: v.string(),
     winner: v.string(),
+    draw: v.boolean(),
     board: v.object({
       square_0: v.optional(v.array(puppetSchema)),
       square_1: v.optional(v.array(puppetSchema)),

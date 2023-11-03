@@ -6,7 +6,10 @@ import { revealWapper } from '../../pages/CreateRoom/styles.css'
 import { Id } from '@convex/_generated/dataModel'
 import { useNavigate } from 'react-router-dom'
 import { useJoinRoom } from '@/core/services/realtime'
-import { updateRoomInStorage } from '@/core/services/storage'
+import {
+  getRoomFromStorage,
+  updateRoomInStorage
+} from '@/core/services/storage'
 
 export const Join: FC = () => {
   const [loading, setLoading] = useState(false)
@@ -20,6 +23,13 @@ export const Join: FC = () => {
   const handleJoinRoom = async () => {
     const player_name = player_name_ref.current.value
     const room_id = room_id_ref.current.value as Id<'rooms'>
+
+    const existsRoomInStorage = getRoomFromStorage(room_id)
+
+    if (existsRoomInStorage) {
+      navigate(`/war/${room_id}`)
+      return
+    }
 
     setLoading(true)
 

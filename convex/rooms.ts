@@ -44,6 +44,7 @@ export const createRoom = mutation({
         player_one: args?.player_name
       },
       winner: '',
+      draw: false,
       player_one: generateSquares('player_one'),
       player_two: generateSquares('player_two')
     })
@@ -141,10 +142,29 @@ export const updateWinner = mutation({
   }
 })
 
+export const updateDraw = mutation({
+  args: {
+    room_id: v.id('rooms')
+  },
+  handler: async (ctx, args) => {
+    const { room_id } = args
+
+    const room = await ctx.db.get(room_id)
+
+    if (!room) {
+      throw new ConvexError('room_id does not exists')
+    }
+
+    return await ctx.db.patch(room_id, {
+      draw: true
+    })
+  }
+})
+
 export const restartRoom = mutation({
   args: {
     room_id: v.id('rooms'),
-    winner: v.string()
+    winner: v.optional(v.string())
   },
   handler: async (ctx, args) => {
     const { room_id, winner } = args
@@ -171,6 +191,7 @@ export const restartRoom = mutation({
       },
       current_player,
       winner: '',
+      draw: false,
       player_one: generateSquares('player_one'),
       player_two: generateSquares('player_two')
     })

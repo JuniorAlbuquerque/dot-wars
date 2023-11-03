@@ -5,4 +5,5 @@ export type PlayerProps = {
   disabled?: boolean
   isTurn?: boolean
   subscriber?: boolean
+  online?: boolean
 }

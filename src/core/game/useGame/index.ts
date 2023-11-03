@@ -1,13 +1,19 @@
 import { useGameStore } from '@/store/game/game.store'
-import { checkIsDraw, checkWinner } from '@/core/game/checkWinner'
+import { checkWinner } from '@/core/game/checkWinner'
 import { initalBoard } from '@/utils/constants'
 import { useCallback, useEffect } from 'react'
 import { MovePuppet } from './types'
-import { useUpdateRoom, useUpdateWinner } from '@/core/services/realtime'
+import {
+  useUpdateDraw,
+  useUpdateRoom,
+  useUpdateWinner
+} from '@/core/services/realtime'
+import { checkIsDraw } from '../checkIsDraw'
 
 export const useGame = (online: boolean = false) => {
   const updateSquare = useGameStore((state) => state.updateSquare)
   const updateWinner = useGameStore((state) => state.updateWinner)
+  const updateDraw = useGameStore((state) => state.updateDraw)
   const current_player = useGameStore((state) => state.current_player)
   const player_one = useGameStore((state) => state.player_one)
   const player_two = useGameStore((state) => state.player_two)
@@ -16,6 +22,7 @@ export const useGame = (online: boolean = false) => {
 
   const updateRoom = useUpdateRoom()
   const updateWinnerDb = useUpdateWinner()
+  const updateDrawDb = useUpdateDraw()
 
   const movePuppet = useCallback(
     async ({ puppet, square_id }: MovePuppet) => {
@@ -58,7 +65,13 @@ export const useGame = (online: boolean = false) => {
   useEffect(() => {
     const isDraw = checkIsDraw(squares, [...player_one, ...player_two])
 
-    console.log('draw', isDraw)
+    if (isDraw) {
+      updateDraw()
+
+      if (online) {
+        updateDrawDb(current_room)
+      }
+    }
   }, [squares, player_one?.length, player_two?.length])
 
   return {

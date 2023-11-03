@@ -89,6 +89,7 @@ export const Game: FC<GameProps> = ({ online = false }) => {
           disabled={online}
           isTurn={current_player !== subscriberPlayer}
           subscriber
+          online={online}
         />
 
         <div className={gameBoard}>
@@ -100,6 +101,7 @@ export const Game: FC<GameProps> = ({ online = false }) => {
         <Player
           player={publisherPlayer}
           isTurn={current_player !== publisherPlayer}
+          online={online}
         />
       </GameContainer>
     </DragDropContext>

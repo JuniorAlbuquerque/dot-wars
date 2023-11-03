@@ -16,9 +16,11 @@ export const Player: FC<PlayerProps> = ({
   player,
   disabled = false,
   isTurn,
-  subscriber
+  subscriber,
+  online
 }) => {
   const puppets = useGameStore((state) => state[player])
+  const player_names = useGameStore((state) => state.player_names)
 
   return (
     <Droppable droppableId={player} direction="horizontal">
@@ -65,7 +67,9 @@ export const Player: FC<PlayerProps> = ({
                 color: player_turn_color[player]
               }}
             >
-              {player?.split('_')[0]} {player?.split('_')[1]} can play!
+              {online ? player_names?.[player] : player?.split('_')[0]}{' '}
+              {player?.split('_')[1]} can play!
+              {/* {player?.split('_')[0]} {player?.split('_')[1]} can play! */}
             </h1>
           )}
         </div>

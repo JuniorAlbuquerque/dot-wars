@@ -30,8 +30,10 @@ export type GameModel = {
     player_two?: string
   }
   winner: PlayerModel
+  draw?: boolean
   room_id?: Id<'rooms'>
   updateSquare(puppet: Puppet, square_id: SquareKey): void
   updateWinner(winner: PlayerModel): void
+  updateDraw(): void
   resetGame(): void
 }

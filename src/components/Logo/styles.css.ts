@@ -12,7 +12,7 @@ export const logoStyle = style({
 
   '@media': {
     'screen and (min-width: 768px)': {
-      fontSize: '48px'
+      fontSize: '42px'
     }
   }
 })

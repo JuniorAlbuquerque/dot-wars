@@ -5,7 +5,7 @@ export const initalBoard = squareKeys
 
 export const initialGameState: Pick<
   GameModel,
-  'squares' | 'player_one' | 'player_two' | 'winner'
+  'squares' | 'player_one' | 'player_two' | 'winner' | 'draw'
 > = {
   player_one: generateSquares('player_one'),
   player_two: generateSquares('player_two'),
@@ -20,7 +20,8 @@ export const initialGameState: Pick<
     square_7: [],
     square_8: []
   },
-  winner: null
+  winner: null,
+  draw: false
 }
 
 export const winningCombinations = [

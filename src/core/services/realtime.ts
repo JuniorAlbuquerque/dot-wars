@@ -17,7 +17,7 @@ export const useRestartGame = () => {
   const restartGame = async (room_id: string, winner: string) => {
     return await restartOnlineGame({
       room_id: room_id as Id<'rooms'>,
-      winner
+      winner: winner ? winner : undefined
     })
   }
 
@@ -35,6 +35,18 @@ export const useUpdateWinner = () => {
   }
 
   return updateWinnerDb
+}
+
+export const useUpdateDraw = () => {
+  const updateDraw = useMutation(api.rooms.updateDraw)
+
+  const updateDrawDb = async (room_id: string) => {
+    return await updateDraw({
+      room_id: room_id as Id<'rooms'>
+    })
+  }
+
+  return updateDrawDb
 }
 
 export const useUpdateRoom = () => {

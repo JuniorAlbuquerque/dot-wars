@@ -18,10 +18,13 @@ import { ImgLogo } from '../ImgLogo'
 import { Slider } from '../Slider'
 import { useControlStore } from '@/store/control/control.store'
 import unlock from '@/assets/material_product_sounds/wav/primary/ui_unlock.wav'
+import { useLocation, useNavigate } from 'react-router-dom'
 
 export const Settings: FunctionComponent = () => {
   const [openSettings, setOpenSettings] = useState(false)
   const effectsVolume = useControlStore((state) => state.effectsVolume)
+  const navigate = useNavigate()
+  const location = useLocation()
 
   const [playClick] = useSound(unlock, {
     volume: effectsVolume
@@ -79,6 +82,22 @@ export const Settings: FunctionComponent = () => {
             >
               Close
             </button>
+
+            {location.pathname?.includes('war') && (
+              <button
+                className={buttonSettings}
+                onClick={() => {
+                  navigate('/')
+                  setOpenSettings(false)
+                }}
+                onMouseDown={() => {
+                  playClick()
+                }}
+              >
+                Go to Home
+              </button>
+            )}
+
             <button
               className={buttonSettings}
               onClick={() => {
