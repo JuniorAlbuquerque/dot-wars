@@ -7,7 +7,7 @@ import { GameContainer } from '@/components/GameContainer'
 import { useNavigate } from 'react-router-dom'
 import { ImgLogo } from '@/components/ImgLogo'
 
-export const Home: FC = () => {
+const Home: FC = () => {
   const navigate = useNavigate()
 
   const handleChooseGameType = useCallback((type: 'local' | 'online') => {
@@ -39,3 +39,5 @@ export const Home: FC = () => {
     </GameContainer>
   )
 }
+
+export default Home
