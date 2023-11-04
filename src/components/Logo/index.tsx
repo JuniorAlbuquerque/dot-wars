@@ -11,7 +11,7 @@ interface Props extends HTMLMotionProps<'div'> {
 }
 
 const Logo: FC<Props> = ({
-  text = 'DOT WARS',
+  text = 'DOT WARS!',
   delay = 0,
   duration = 0.08,
   show = true,
