@@ -1,27 +1,30 @@
-# React + TypeScript + Vite
+# Dot wars
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-Currently, two official plugins are available:
+<p align="center">
+A super tic tac toe game to play in web
+</p>
+   
+<p align="center">
+<img src="https://github.com/JuniorAlbuquerque/dot-wars/assets/42422605/d2303655-d5f3-4d8c-9076-19d2f9d43b1c" alt="VITE-REACT-BOILERPLATE" width="200"/>
+</p>
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Stack
 
-## Expanding the ESLint configuration
+This project uses lot of stuff as:
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+ - [React](https://pt-br.reactjs.org/)
+ - [Vite](https://vitejs.dev/)
+ - [Vitest](https://vitest.dev/)
+ - [Typescript](https://www.typescriptlang.org/)
+ - [Convex](https://www.convex.dev/)
+ - [Vanilla Extract css](https://vanilla-extract.style/)
+ - [React beaufiul dnd](https://github.com/atlassian/react-beautiful-dnd)
 
-- Configure the top-level `parserOptions` property like this:
+## Author
 
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
-```
-
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+<table>
+  <tr>
+    <td align="center"><a href="https://ed-jnr.com"><img src="https://avatars.githubusercontent.com/u/42422605?v=4" width="100px;" alt=""/><br /><sub><b>Ednilson Albuquerque</b></sub></a><br /></td>
+  </tr>
+</table>
