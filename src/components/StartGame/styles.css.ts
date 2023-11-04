@@ -51,7 +51,9 @@ export const drawWrapper = style({
   display: 'flex',
   flexDirection: 'column',
   gap: 8,
-  alignItems: 'center'
+  alignItems: 'center',
+
+  fontSize: 24
 })
 
 export const puppetsWrapper = style({
