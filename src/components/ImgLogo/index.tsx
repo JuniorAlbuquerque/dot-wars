@@ -1,9 +1,15 @@
 import { FC } from 'react'
-import logo from '@/assets/images/logo-veia-ofc.png'
 import { logoImg } from './styles.css'
 
 export const ImgLogo: FC = () => {
   return (
-    <img src={logo} alt="Logo Dot Wars" loading="lazy" className={logoImg} />
+    <img
+      src="/logo-dot.png"
+      alt="Logo Dot Wars"
+      loading="lazy"
+      width={200}
+      height={200}
+      className={logoImg}
+    />
   )
 }
