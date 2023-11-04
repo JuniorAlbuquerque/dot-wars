@@ -1,5 +1,10 @@
 import { RouteObject } from 'react-router-dom'
-import { LocalGame } from '../pages/LocalGame'
+import LazyLoader from '@/components/LazyLoader'
+import { lazy } from 'react'
+
+const LocalGame = LazyLoader({
+  Component: lazy(() => import('@/modules/local-game/pages/LocalGame'))
+})
 
 const LocalGameRoutes: RouteObject = {
   children: [

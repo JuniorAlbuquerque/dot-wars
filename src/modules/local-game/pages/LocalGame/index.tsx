@@ -2,7 +2,7 @@ import { Game } from '@/components/Game'
 import { StartGame } from '@/components/StartGame'
 import { Fragment } from 'react'
 
-export const LocalGame = () => {
+const LocalGame = () => {
   return (
     <Fragment>
       <StartGame />
@@ -10,3 +10,5 @@ export const LocalGame = () => {
     </Fragment>
   )
 }
+
+export default LocalGame
