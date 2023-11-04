@@ -12,6 +12,10 @@ const OnlineGameRoutes: RouteObject = {
       path: '/create-war'
     },
     {
+      element: <CreateRoom />,
+      path: '/create-war/:room_id'
+    },
+    {
       element: (
         <ErrorBoundary
           fallbackRender={({ error }) => <FallbackError error={error} />}

@@ -1,7 +1,7 @@
 import { Button } from '@/components/Button'
 import { Input } from '@/components/Input'
 import { Reveal } from '@/components/Reveal'
-import { FC, Fragment, useRef, useState } from 'react'
+import { FC, Fragment, useEffect, useRef, useState } from 'react'
 import { revealWapper } from '../../pages/CreateRoom/styles.css'
 import { Id } from '@convex/_generated/dataModel'
 import { useNavigate } from 'react-router-dom'
@@ -11,7 +11,11 @@ import {
   updateRoomInStorage
 } from '@/core/services/storage'
 
-export const Join: FC = () => {
+type JoinProps = {
+  room_id?: string
+}
+
+export const Join: FC<JoinProps> = ({ room_id }) => {
   const [loading, setLoading] = useState(false)
 
   const player_name_ref = useRef<HTMLInputElement>(null)
@@ -49,6 +53,13 @@ export const Join: FC = () => {
       setLoading(false)
     }
   }
+
+  useEffect(() => {
+    if (room_id) {
+      room_id_ref.current.value = room_id
+      player_name_ref.current.focus()
+    }
+  }, [room_id])
 
   return (
     <Fragment>
