@@ -7,8 +7,6 @@ export const ImgLogo: FC = () => {
       src="/logo-dot.png"
       alt="Logo Dot Wars"
       loading="lazy"
-      width={200}
-      height={200}
       className={logoImg}
     />
   )
